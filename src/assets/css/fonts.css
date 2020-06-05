@@ -1,0 +1,284 @@
+@font-face {
+    font-family: 'mgfont';
+    src: url('../fonts/mgfont.eot');
+    src: url('../fonts/mgfont.eot#iefix') format('embedded-opentype'),
+    url('../fonts/mgfont.ttf') format('truetype'),
+    url('../fonts/mgfont.woff') format('woff'),
+    url('../fonts/mgfont.svg#mgfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="ico_"], [class*=" ico_"] {
+    /* use !important to prevent issues with browser extensions that change fonts以icon_开头或包含icon_的样式名 */
+    font-family: 'mgfont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    -webkit-transition: color 0.3s ease;
+    -moz-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ==========================================================================
+   字体图标
+   ========================================================================== */
+
+
+.ico_alert:before {
+    content: "\e922";
+}
+
+.ico_ban:before {
+    content: "\e923";
+}
+
+.ico_cab:before {
+    content: "\e924";
+}
+
+.ico_link:before {
+    content: "\e925";
+}
+
+.ico_list:before {
+    content: "\e926";
+}
+
+.ico_log:before {
+    content: "\e928";
+}
+
+.ico_power:before {
+    content: "\e92b";
+}
+
+.ico_steup:before {
+    content: "\e92c";
+}
+
+.ico_tick:before {
+    content: "\e92d";
+}
+
+.ico_edit:before {
+    content: "\e900";
+}
+
+.ico_fenxian:before {
+    content: "\e901";
+}
+
+.ico_lunan:before {
+    content: "\e902";
+}
+
+.ico_ping:before {
+    content: "\e903";
+}
+
+.ico_scang:before {
+    content: "\e904";
+}
+
+.ico_zan:before {
+    content: "\e905";
+}
+
+.ico_zan2:before {
+    content: "\e906";
+}
+
+.ico_zoom:before {
+    content: "\e907";
+}
+
+.ico_m14:before {
+    content: "\e908";
+}
+
+.ico_m15:before {
+    content: "\e909";
+}
+
+.ico_m1:before {
+    content: "\e90a";
+}
+
+.ico_m6:before {
+    content: "\e90b";
+}
+
+.ico_m16:before {
+    content: "\e90c";
+}
+
+.ico_m5:before {
+    content: "\e90d";
+}
+
+.ico_m8:before {
+    content: "\e90e";
+}
+
+.ico_m18:before {
+    content: "\e90f";
+}
+
+.ico_m19:before {
+    content: "\e910";
+}
+
+.ico_m20:before {
+    content: "\e911";
+}
+
+.ico_m22:before {
+    content: "\e912";
+}
+
+.ico_m23:before {
+    content: "\e913";
+}
+
+.ico_m9:before {
+    content: "\e914";
+}
+
+.ico_m10:before {
+    content: "\e915";
+}
+
+.ico_m24:before {
+    content: "\e916";
+}
+
+.ico_m25:before {
+    content: "\e917";
+}
+
+.ico_m13:before {
+    content: "\e918";
+}
+
+.ico_m11:before {
+    content: "\e919";
+}
+
+.ico_m12:before {
+    content: "\e91a";
+}
+
+.ico_acr_t:before {
+    content: "\e91b";
+}
+
+.ico_acr_b:before {
+    content: "\e91c";
+}
+
+.ico_excel:before {
+    content: "\e91d";
+}
+
+.ico_m17:before {
+    content: "\e91e";
+}
+
+.ico_pdf:before {
+    content: "\e91f";
+}
+
+.ico_pp:before {
+    content: "\e920";
+}
+
+.ico_word:before {
+    content: "\e921";
+}
+
+.ico_m4:before {
+    content: "\e927";
+}
+
+.ico_m26:before {
+    content: "\e929";
+}
+
+.ico_m27:before {
+    content: "\e92a";
+}
+
+.ico_m28:before {
+    content: "\e930";
+}
+
+.ico_m29:before {
+    content: "\e931";
+}
+
+.ico_m30:before {
+    content: "\e932";
+}
+
+.ico_m7:before {
+    content: "\e935";
+}
+
+.ico_m31:before {
+    content: "\e93b";
+}
+
+.ico_m32:before {
+    content: "\e93c";
+}
+
+.ico_m33:before {
+    content: "\e942";
+}
+
+.ico_m34:before {
+    content: "\e943";
+}
+
+.ico_m3:before {
+    content: "\e948";
+}
+
+.ico_m2:before {
+    content: "\e949";
+}
+
+.ico_m35:before {
+    content: "\e94a";
+}
+
+.ico_m36:before {
+    content: "\e94d";
+}
+
+.ico_m37:before {
+    content: "\e94e";
+}
+
+.ico_m21:before {
+    content: "\e94f";
+}
+
+.ico_m38:before {
+    content: "\e955";
+}
+
+.ico_m39:before {
+    content: "\e956";
+}

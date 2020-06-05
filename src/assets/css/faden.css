@@ -1,0 +1,195 @@
+@charset "utf-8";
+.lanrenzhijia_slider {
+    width: 100%;
+    min-width: 1340px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    text-align: center;
+    clear: both;
+}
+
+.lanrenzhijia_slider .bd {
+    width: 1920px;
+    position: absolute;
+    left: 50%;
+    margin-left: -960px
+}
+
+.lanrenzhijia_slider .bd li, .lanrenzhijia_slider .bd ul {
+    width: 1920px;
+    overflow: hidden;
+    height: 300px;
+}
+
+.lanrenzhijia_slider .bd li img {
+    display: block;
+    width: 1920px;
+    /*height:490px;*/
+    height: 300px;
+}
+
+.lanrenzhijia_slider .tempWrap {
+    overflow: visible !important
+}
+
+.lanrenzhijia_slider .tempWrap ul {
+    margin-left: -1920px !important;
+}
+
+.lanrenzhijia_slider .hd {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    height: 8px;
+    bottom: 20px;
+    text-align: center;
+}
+
+.lanrenzhijia_slider .hd li {
+    display: inline-block;
+    zoom: 1;
+    width: 8px;
+    height: 8px;
+    line-height: 99px;
+    overflow: hidden;
+    background: url(../images/slider-btn.png) 0 -10px no-repeat;
+    margin: 0 5px;
+    cursor: pointer;
+
+}
+
+.lanrenzhijia_slider .hd li.on {
+    background-position: 0 0;
+}
+
+/*------------------------------2018---------*/
+.lanrenzhijia_slider .lineBG {
+    z-index: 10;
+    width: 100%;
+    height: 90px;
+    bottom: 0px;
+    display: block;
+    position: absolute;
+}
+
+/*底部蒙版*/
+.lanrenzhijia_slider .lineBG h1, .lanrenzhijia_slider .lineBG h2 {
+    width: 50%;
+    height: 90px;
+    display: block;
+}
+
+.lanrenzhijia_slider .lineBG h1 {
+    float: left;
+    background: url(../images/mask_l.png);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}
+
+.lanrenzhijia_slider .lineBG h2 {
+    float: right;
+    background: url(../images/mask_r.png);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+}
+
+
+/*三角形
+.lanrenzhijia_slider .lineBG em {float:left;width:12%;display:block;height:25px;}
+.lanrenzhijia_slider .lineBG em i,.lanrenzhijia_slider .lineBG em p{ 
+    width:25px; 
+    height:25px;
+	display:inline-block;
+	margin-top:0px;
+	background-color:#ffffff;
+	}
+.lanrenzhijia_slider .lineBG em i{ 
+	margin-left:-10px;
+    float:left; 
+    
+    -webkit-transform:skew(45deg,0deg); 
+	   -moz-transform:skew(45deg,0deg); 
+	    -ms-transform:skew(45deg,0deg); 
+         -o-transform:skew(45deg,0deg); 
+	        transform:skew(45deg,0deg); 
+	}
+.lanrenzhijia_slider .lineBG em p{ 
+	margin-right:-10px;
+    float:right; 
+
+    -webkit-transform:skew(-45deg,0deg); 
+	   -moz-transform:skew(-45deg,0deg); 
+	    -ms-transform:skew(-45deg,0deg); 
+         -o-transform:skew(-45deg,0deg); 
+	        transform:skew(-45deg,0deg); 
+	}
+*/
+/*---------------------------------------*/
+
+.lanrenzhijia_slider .pnBtn {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 300px;
+    cursor: pointer;
+}
+
+.lanrenzhijia_slider .prev {
+    left: -50%;
+    margin-left: -960px;
+}
+
+.lanrenzhijia_slider .next {
+    left: 50%;
+    margin-left: 960px;
+}
+
+.lanrenzhijia_slider .pnBtn .blackBg {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 300px;
+    background: url(../images/bg_mv.png) repeat;
+    background-color: rgba(0, 0, 0, 0.10);
+}
+
+.lanrenzhijia_slider .pnBtn .blackBg i {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 90px;
+    width: 100%;
+    background-color: #fff;
+}
+
+/*左右底部蒙版*/
+.lanrenzhijia_slider .pnBtn .arrow {
+    display: none;
+    position: absolute;
+    top: 100px;
+    z-index: 1;
+    width: 45px;
+    height: 60px;
+}
+
+.lanrenzhijia_slider .pnBtn .arrow:hover {
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+}
+
+.lanrenzhijia_slider .prev .arrow {
+    right: -350px;
+    background: url(../images/slider-arrow.png) -110px 0 no-repeat;
+}
+
+.lanrenzhijia_slider .next .arrow {
+    left: -350px;
+    background: url(../images/slider-arrow.png) -170px 0 no-repeat;
+}
