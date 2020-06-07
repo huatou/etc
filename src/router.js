@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "./views/index/Index";
-import ConnectDevice from "@/components/ConnectDevice";
-import BaseSettingsInput from "@/components/BaseSettingsInput";
-import CabinetInfoInput from "@/components/CabinetInfoInput";
-import DistributionFloorInfoInput from "@/components/DistributionFloorInfoInput";
+import ConnectDevice from "./components/ConnectDevice";
+import BaseSettingsInput from "./components/BaseSettingsInput";
+import CabinetInfoInput from "./components/CabinetInfoInput";
+import DistributionFloorInfoInput from "./components/DistributionFloorInfoInput";
+import DeviceList from "./components/DeviceList";
+import DeviceControl from "./components/DeviceControl";
+import OperationLog from "./components/OperationLog";
+import DeviceWarning from "./components/DeviceWarning";
 
 Vue.use(Router);
 const router = new Router({
@@ -38,6 +42,26 @@ const router = new Router({
                     path: '/index/distribution-floor-info-input',
                     name: 'DistributionFloorInfoInput',
                     component: DistributionFloorInfoInput
+                },
+                {
+                    path: '/index/device-list',
+                    name: 'DeviceList',
+                    component: DeviceList
+                },
+                {
+                    path: '/index/device-control',
+                    name: 'DeviceControl',
+                    component: DeviceControl
+                },
+                {
+                    path: '/index/operation-log',
+                    name: 'OperationLog',
+                    component: OperationLog
+                },
+                {
+                    path: '/index/device-warning',
+                    name: 'OperationLog',
+                    component: DeviceWarning
                 }
             ]
         }

@@ -66,24 +66,20 @@
                         to: '/index/distribution-floor-info-input',
                         icon: 'ico_power',
                         text: '配电层信息录入'
-                    }, {
-                        to: '/index/connect-device',
-                        icon: 'ico_m5',
-                        text: '设备信息录入'
-                    }, {
-                        to: '/index/connect-device',
+                    },{
+                        to: '/index/device-list',
                         icon: 'ico_list',
                         text: '设备信息列表'
                     }, {
-                        to: '/index/connect-device',
+                        to: '/index/device-control',
                         icon: 'ico_steup',
                         text: '设备控制'
                     }, {
-                        to: '/index/connect-device',
+                        to: '/index/operation-log',
                         icon: 'ico_log',
                         text: '操作日志'
                     }, {
-                        to: '/index/connect-device',
+                        to: '/index/device-warning',
                         icon: 'ico_alert',
                         text: '重要设备报警'
                     },
