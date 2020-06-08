@@ -11,42 +11,47 @@
                 <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1" style="table-layout: fixed">
                     <thead>
                     <tr>
-                        <th width="10%"></th>
+                        <th width="7%"></th>
                         <th width="15%">设备类型</th>
-                        <th width="15%">车道号（编号）</th>
+                        <th width="10%">车道号<br>（编号）</th>
+                        <th width="13%">设备名称</th>
                         <th width="20%">设备IP地址</th>
                         <th width="10%">设备端口号</th>
                         <th width="15%">设备用户名密码<br>或GET密码</th>
                         <th width="15%">设备SET密码</th>
                     </tr>
                     </thead>
-                    <tbody v-if="currentFloor == floorList[0]">
-                    <tr v-for="(item,index) in doList12">
-                        <td>设备{{index+1}}</td>
+                    <tbody v-show="currentFloor == floorList[0]">
+                    <tr v-for="(item,index) in sortList" v-show="index<12">
+                        <td>设备{{item.value}}</td>
                         <td>
-                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="$forceUpdate();">
+                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="onChangeDevice(item,index)">
                                 <option v-for="childItem in deviceTypeList" :value="childItem.value" v-text="childItem.name"></option>
                             </select>
                         </td>
                         <td>
-                            <!--                            {{item.deviceModel.deviceTypeNo}}-->
                             <select type="select_one" v-model="item.deviceModel.deviceTypeNo"
-                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0">
+                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" @change="onChangeDevice(item,index)">
                                 <option v-for="(childItem,index) in getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)" :value="index+1"
                                         v-text="childItem"></option>
                             </select>
                         </td>
+                        <td>{{item.name}}</td>
                         <td>
                             <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" type="text" v-model="item.deviceModel.ip"
                                    style="height: 29px;width: 85%;font-size: 13px">
                         </td>
                         <td>
                             <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType != deviceTypeList[4].value
+                                            && (item.deviceModel.deviceType != deviceTypeList[0].value
+                                            && item.deviceModel.deviceType != deviceTypeList[4].value
                                             && item.deviceModel.deviceType != deviceTypeList[5].value
                                             && item.deviceModel.deviceType != deviceTypeList[6].value)"
                                    type="text" v-model="item.deviceModel.port"
                                    style="height: 29px;width: 70%;font-size: 13px">
+                            <span v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.deviceModel.deviceType == deviceTypeList[0].value">
+                                9528
+                            </span>
                         </td>
                         <td>
                             <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
@@ -70,18 +75,21 @@
                     </tr>
                     </tbody>
                     <tbody v-show="currentFloor == floorList[1]">
-                    <tr v-for="(item,index) in doList24">
-                        <td>设备{{index+13}}</td>
+                    <tr v-for="(item,index) in sortList" v-show="index>11 && index < 24">
+                        <td>设备{{item.value}}</td>
                         <td>
-                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="$forceUpdate();">
+                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="onChangeDevice(item,index)">
                                 <option v-for="childItem in deviceTypeList" :value="childItem.value" v-text="childItem.name"></option>
                             </select>
                         </td>
-                        <select type="select_one" v-model="item.deviceModel.deviceTypeNo"
-                                v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0">
-                            <option v-for="(childItem,index) in getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)" :value="index+1"
-                                    v-text="childItem"></option>
-                        </select>
+                        <td>
+                            <select type="select_one" v-model="item.deviceModel.deviceTypeNo"
+                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" @change="onChangeDevice(item,index)">
+                                <option v-for="(childItem,index) in getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)" :value="index+1"
+                                        v-text="childItem"></option>
+                            </select>
+                        </td>
+                        <td>{{item.name}}</td>
                         <td>
                             <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" type="text" v-model="item.deviceModel.ip"
                                    style="height: 29px;width: 85%;font-size: 13px">
@@ -165,8 +173,23 @@
                 afterSubmit: false,
             }
         },
-        computed: {},
+        computed: {
+            sortList() {
+                return this.data12.dolist.sort(function (a, b) {
+                    return a.value - b.value
+                });
+            }
+        },
         methods: {
+            getDeviceTypeNameByDeviceType(deviceType) {
+                let deviceTypeName;
+                this.deviceTypeList.forEach((item) => {
+                    if (item.value == deviceType) {
+                        deviceTypeName = item.name;
+                    }
+                })
+                return deviceTypeName;
+            },
             getDeviceTypeNoListByDeviceType(deviceType) {
                 if (deviceType == this.deviceTypeList[0].value || deviceType == this.deviceTypeList[6].value) {
                     return ["主", "备"]
@@ -185,7 +208,7 @@
                 let deviceTypeNo = doListItemName.slice(deviceType.length, deviceType.length + 1);
                 let deviceModel = {
                     deviceType: deviceType,
-                    deviceName: deviceName,
+                    name: deviceName,
                     deviceTypeNo: deviceTypeNo
                 };
 
@@ -196,7 +219,7 @@
                     return;
                 }
                 let deviceList = [];
-                let deviceModel;
+                let deviceModel = {};
                 if (this.stringUtils.contain(doListItemName, "rsu")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "rsu");
                     deviceList = this.data12.rsulist;
@@ -222,32 +245,92 @@
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "do");
                     deviceList = [];
                 }
-                // console.log("doListItemName",doListItemName);
-                // console.log("deviceList",deviceList);
-                // console.log("deviceName", deviceModel.deviceName);
                 if (deviceList.length != 0) {
-                    for (let i = 0; i < deviceList.length; i) {
+                    for (let i = 0; i < deviceList.length; i++) {
                         let deviceItem = deviceList[i];
-                        console.log("name", deviceItem.name);
-                        if (deviceItem.name == deviceModel.deviceName) {
+                        if (deviceItem.name == deviceModel.name) {
                             deviceItem.deviceType = deviceModel.deviceType;
                             deviceItem.deviceTypeNo = deviceModel.deviceTypeNo;
+                            return deviceItem;
                         }
-                        return deviceItem;
                     }
                 } else {
                     return deviceModel;
                 }
             },
+            onChangeDevice(item, index) {
+                if (item.deviceModel.deviceType != 'do') {
+                    item.name = item.deviceModel.deviceType + item.deviceModel.deviceTypeNo + '_do';
+                } else {
+                    item.name = item.deviceModel.deviceType + (index + 1) + '_do';
+                }
+                //更新设备名称
+                item.deviceModel.name = item.deviceModel.deviceType + item.deviceModel.deviceTypeNo;
+                this.$forceUpdate();
+            },
             submit() {
-                this.submitting = true;
-
-                this.data12.dolist.forEach(doListItem => {
-
-
+                for (let i = 0; i < this.data12.dolist.length; i++) {
+                    let doListItem = this.data12.dolist[i];
+                    let doListItemName = doListItem.name;
+                    let sameCount = 0;
+                    for (let j = 0; j < this.data12.dolist.length; j++) {
+                        let doListItem_ = this.data12.dolist[j];
+                        let doListItemName_ = doListItem_.name;
+                        if (doListItemName == doListItemName_ && doListItem_.deviceModel.deviceType != 'do') {
+                            sameCount++;
+                        }
+                    }
+                    if (sameCount > 1) {
+                        alert("【" + this.getDeviceTypeNameByDeviceType(doListItem.deviceModel.deviceType) + "】配置重复");
+                        return;
+                    }
+                }
+                this.data12.rsulist = [];
+                this.data12.dolist.forEach((doListItem) => {
+                    let doListItemDeviceType = doListItem.deviceModel.deviceType;
+                    if (doListItemDeviceType == "rsu") {
+                        console.log("rsulist", doListItem.deviceModel);
+                        this.data12.rsulist.push(doListItem.deviceModel);
+                    } else if (doListItemDeviceType == "vehplate") {
+                        this.data12.vehplatelist.forEach((vehplateListItem) => {
+                            if (vehplateListItem.name == doListItem.deviceModel.name) {
+                                vehplateListItem = this.jquery.extend(vehplateListItem, doListItem.deviceModel);
+                            }
+                        });
+                    } else if (doListItemDeviceType == "vehplate900") {
+                        this.data12.vehplate900list.forEach((vehplate900ListItem) => {
+                            if (vehplate900ListItem.name == doListItem.deviceModel.name) {
+                                vehplate900ListItem = this.jquery.extend(vehplate900ListItem, doListItem.deviceModel);
+                            }
+                        });
+                    } else if (doListItemDeviceType == "cam") {
+                        this.data12.vehplatelist.forEach((camListItem) => {
+                            if (camListItem.name == doListItem.deviceModel.name) {
+                                camListItem = this.jquery.extend(camListItem, doListItem.deviceModel);
+                            }
+                        });
+                    } else if (doListItemDeviceType == "ipswitch") {
+                        this.data12.ipswitchlist.forEach((ipswitchListItem) => {
+                            if (ipswitchListItem.name == doListItem.deviceModel.name) {
+                                ipswitchListItem = this.jquery.extend(ipswitchListItem, doListItem.deviceModel);
+                            }
+                        });
+                    } else if (doListItemDeviceType == "fireware") {
+                        this.data12.firewarelist.forEach((firewareListItem) => {
+                            if (firewareListItem.name == doListItem.deviceModel.name) {
+                                firewareListItem = this.jquery.extend(firewareListItem, doListItem.deviceModel);
+                            }
+                        });
+                    } else if (doListItemDeviceType == "atlas") {
+                        this.data12.atlaslist.forEach((atlasListItem) => {
+                            if (atlasListItem.name == doListItem.deviceModel.name) {
+                                atlasListItem = this.jquery.extend(atlasListItem, doListItem.deviceModel);
+                            }
+                        });
+                    }
                 });
-
                 let params = this.jquery.extend({opt: 2}, this.data12);
+                this.submitting = true;
                 this.request.get12Data(this, params, (data) => {
                     this.submitting = false;
                     this.afterSubmit = true;
@@ -268,8 +351,6 @@
                         doListItem.deviceModel = deviceModel;
                     }
                 });
-                this.doList12 = data.dolist.slice(0, 11);
-                this.doList24 = data.dolist.slice(12, 23);
             })
             this.request.get20Data(this, (data) => {
                 this.data20 = data;

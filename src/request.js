@@ -13,14 +13,17 @@ const MESSAGE_TYPE_5 = 5;
 const MESSAGE_TYPE_12 = 12;
 const MESSAGE_TYPE_14 = 14;
 const MESSAGE_TYPE_15 = 15;
+const MESSAGE_TYPE_16 = 16;
 const MESSAGE_TYPE_18 = 18;
 const MESSAGE_TYPE_19 = 19;
 const MESSAGE_TYPE_20 = 20;
 const MESSAGE_TYPE_22 = 22;
+const MESSAGE_TYPE_23 = 23;
 const MESSAGE_TYPE_24 = 24;
 const MESSAGE_TYPE_25 = 25;
 const MESSAGE_TYPE_27 = 27;
 const MESSAGE_TYPE_28 = 28;
+const MESSAGE_TYPE_29 = 29;
 const MESSAGE_TYPE_30 = 30;
 
 export default {
@@ -56,6 +59,9 @@ export default {
     get15Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_15, null, onSuccess);
     },
+    get16Data(vue, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_16, null, onSuccess);
+    },
     get18Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_18, null, onSuccess);
     },
@@ -68,6 +74,9 @@ export default {
     get22Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_22, null, onSuccess);
     },
+    get23Data(vue, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_23, null, onSuccess);
+    },
     get24Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_24, null, onSuccess);
     },
@@ -79,6 +88,9 @@ export default {
     },
     get28Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_28, null, onSuccess);
+    },
+    get29Data(vue, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_29, null, onSuccess);
     },
     get30Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_30, null, onSuccess);
