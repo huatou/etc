@@ -62,17 +62,17 @@ export default {
     get16Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_16, null, onSuccess);
     },
-    get18Data(vue, onSuccess) {
-        this.getMessageTypeData(vue, MESSAGE_TYPE_18, null, onSuccess);
+    get18Data(vue, params, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_18, params, onSuccess);
     },
-    get19Data(vue, onSuccess) {
-        this.getMessageTypeData(vue, MESSAGE_TYPE_19, null, onSuccess);
+    get19Data(vue, params, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_19, params, onSuccess);
     },
-    get20Data(vue, onSuccess) {
-        this.getMessageTypeData(vue, MESSAGE_TYPE_20, null, onSuccess);
+    get20Data(vue, params, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_20, params, onSuccess);
     },
-    get22Data(vue, onSuccess) {
-        this.getMessageTypeData(vue, MESSAGE_TYPE_22, null, onSuccess);
+    get22Data(vue, params, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_22, params, onSuccess);
     },
     get23Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_23, null, onSuccess);
@@ -83,8 +83,8 @@ export default {
     get25Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_25, null, onSuccess);
     },
-    get27Data(vue, onSuccess) {
-        this.getMessageTypeData(vue, MESSAGE_TYPE_27, null, onSuccess);
+    get27Data(vue, params, onSuccess) {
+        this.getMessageTypeData(vue, MESSAGE_TYPE_27, params, onSuccess);
     },
     get28Data(vue, onSuccess) {
         this.getMessageTypeData(vue, MESSAGE_TYPE_28, null, onSuccess);

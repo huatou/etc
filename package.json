@@ -9,19 +9,23 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "element-ui": "^2.13.2",
+    "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "node-sass": "^4.12.0",
     "popper.js": "^1.15.0",
     "vue": "^2.6.10",
+    "vue-json-excel": "^0.2.98",
     "vue-router": "^3.0.3",
     "vue-uploads": "^1.0.5",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xlsx": "^0.16.2"
   },
   "devDependencies": {
     "@vue/cli-service": "~4.3.0",
     "element-theme-chalk": "git+https://github.com/ElementUI/theme-chalk.git",
     "sass-loader": "^8.0.2",
+    "script-loader": "^0.7.2",
     "vue-template-compiler": "^2.6.11"
   }
 }

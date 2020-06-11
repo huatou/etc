@@ -46,7 +46,6 @@
                 <a @click="setHardWareId()" class="btn_blue">设置ID
                     <i class="fa fa-spinner fa-pulse" v-show="settingHardWareId"></i>
                 </a>
-                <span v-show="afterSetHardWareId">设置成功</span>
             </div>
         </div>
         <!--标题带新键按钮-->
@@ -83,14 +82,22 @@
             <input type="text" class="md" v-model="file.name" readonly style="font-size: 12px;" :title="file.name">
             <div class="send_btn fl">
                 <a style="border-left: none;padding: 0;line-height: normal;width:100px;">
-                    <label style="position:absolute;text-align: center;margin: 0;">请选择文件</label>
+                    <el-upload style="display: inline" ref="upload" :on-change="onChangeFile" :on-success="onSuccessUploadFile"
+                               :on-error="onErrorUploadFile" :auto-upload="false"
+                               :action="uploadActionUrl" :multiple="false"
+                               :show-file-list="false">
+                        <button type="button" class="el-button el-button--primary el-button--small" style="color: white;">
+                            <span style="color: white;padding: 10px;margin: 0">选取文件</span>
+                        </button>
+                    </el-upload>
                     <input type="file" @change="handleFileChange" style="opacity: 0;height: 34px;width: 100px" placeholder="选择文件"/>
                 </a>
             </div>
-            <div class="tong_btn" style="margin-left: 10px;">
-                <a class="btn_blue" @click="uploadFile()">版本升级</a>
-                <a class="not">版本升级中</a>
-                <span>版本升级中，请勿做其他操作!</span>
+            <div class="tong_btn" style="margin-left: 10px">
+                <a class="btn_blue" @click="uploadFile()" :disabled="uploading" style="line-height: 20px">
+                    版本升级 <i v-show="uploading" class="fa fa-spinner fa-pulse"></i>
+                </a>
+                <span v-show="uploading">版本升级中，请勿做其他操作!</span>
             </div>
         </div>
     </div>
@@ -115,8 +122,9 @@
                 timeout: null,
                 syncingTime: false,//正在时钟同步
                 settingHardWareId: false,//正在设置硬件id
-                afterSetHardWareId: false,
-                file: {}
+                file: {},
+                uploadActionUrl: this.request.getApi(this),
+                uploading: false
             }
         },
         methods: {
@@ -131,7 +139,7 @@
             //时钟同步
             syncTime() {
                 this.syncingTime = true;
-                this.request.get18Data(this, (data) => {
+                this.request.get18Data(this, null, (data) => {
                     this.syncingTime = false;
                 })
             },
@@ -144,46 +152,27 @@
                 }
                 this.request.get12Data(this, params, (data) => {
                     this.settingHardWareId = false;
-                    this.afterSetHardWareId = true;
-                    setTimeout(() => {
-                        this.afterSetHardWareId = false;
-                    }, 2000)
+                    this.$message({type: "success", message: "修改成功"});
                 })
+            },
+            onChangeFile(file) {
+                this.file = file;
             },
             //文件上传
             handleFileChange(e) {
                 this.file = e.target.files[0];
-                console.log(this.file);
-            },
-            uploadError() {
-                alert("上传失败");
             },
             uploadFile() {
-                let that = this;
-                let file = this.file;
-                let reader = new FileReader();
-                reader.readAsBinaryString(file);//这个读法是异步的
-                reader.onloadend = function () {
-                    // 这个事件在读取结束后，无论成功或者失败都会触发
-                    if (reader.error) {
-                        console.log(reader.error);
-                    } else {
-                        let blob = reader.result;
-                        let settings = {
-                            "url": that.request.getApi(that),
-                            "method": "POST",
-                            "timeout": 0,
-                            "crossDomain": true,
-                            "headers": {
-                                "Content-Type": "application/octet-stream"
-                            },
-                            "data": blob
-                        };
-                        that.jquery.ajax(settings).done(function (response) {
-                            console.log(response);
-                        });
-                    }
-                }
+                this.uploading = true;
+                this.$refs.upload.submit();
+
+            },
+            onSuccessUploadFile() {
+                this.uploading = false;
+            },
+            onErrorUploadFile() {
+                this.uploading = false;
+                this.$message({type: "warning", message: "上传失败"});
             }
         },
         mounted() {
@@ -215,5 +204,4 @@
 </script>
 
 <style scoped lang="scss">
-
 </style>

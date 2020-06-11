@@ -11,121 +11,216 @@
                 <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1" style="table-layout: fixed">
                     <thead>
                     <tr>
-                        <th width="10%"></th>
-                        <th width="15%">设备类型</th>
-                        <th width="15%">车道号（编号）</th>
-                        <th width="20%">设备IP地址</th>
-                        <th width="10%">设备端口号</th>
-                        <th width="15%">设备用户名密码<br>或GET密码</th>
-                        <th width="15%">设备SET密码</th>
+                        <th width="8%"></th>
+                        <th width="12%">设备名称</th>
+                        <th width="8%">状态</th>
+                        <th width="8%">电压</th>
+                        <th width="8%">电流</th>
+                        <th width="40%" colspan="6">控制</th>
                     </tr>
                     </thead>
-                    <tbody v-if="currentFloor == floorList[0]">
-                    <tr v-for="(item,index) in doList12">
+                    <tbody v-show="currentFloor == floorList[0]">
+                    <tr v-for="(item,index) in data19.dolist" v-show="index<12">
                         <td>设备{{index+1}}</td>
                         <td>
-                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="$forceUpdate();">
-                                <option v-for="childItem in deviceTypeList" :value="childItem.value" v-text="childItem.name"></option>
-                            </select>
+                            {{getDeviceTypeNameByDeviceType(item.deviceModel.deviceType)}}
+                            <span v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)[item.deviceModel.deviceTypeNo-1]">（{{getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)[item.deviceModel.deviceTypeNo-1]}}）</span>
                         </td>
-                        <td>
-                            <!--                            {{item.deviceModel.deviceTypeNo}}-->
-                            <select type="select_one" v-model="item.deviceModel.deviceTypeNo"
-                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0">
-                                <option v-for="(childItem,index) in getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)" :value="index+1"
-                                        v-text="childItem"></option>
-                            </select>
+                        <td style="text-align: center">
+                            {{item.status == 0?"断电":"通电"}}
                         </td>
-                        <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" type="text" v-model="item.deviceModel.ip"
-                                   style="height: 29px;width: 85%;font-size: 13px">
+                        <td style="text-align: center">{{item.volt}}</td>
+                        <td style="text-align: center">{{item.amp}}</td>
+                        <td style="text-align: center">
+                            <button :disabled="item.status == 0" @click="switchEle(item,index,1)">断电</button>
                         </td>
-                        <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType != deviceTypeList[4].value
-                                            && item.deviceModel.deviceType != deviceTypeList[5].value
-                                            && item.deviceModel.deviceType != deviceTypeList[6].value)"
-                                   type="text" v-model="item.deviceModel.port"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                        <td style="text-align: center">
+                            <button :disabled="item.status == 1" @click="switchEle(item,index,2)">通电</button>
                         </td>
-                        <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType == deviceTypeList[4].value || item.deviceModel.deviceType == deviceTypeList[5].value)
-                                            && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                   type="text" v-model="item.deviceModel.getpasswd"
-                                   style="height: 29px;width: 70%;font-size: 13px">
-
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType != deviceTypeList[4].value && item.deviceModel.deviceType != deviceTypeList[5].value)
-                                            && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                   type="text" v-model="item.deviceModel.key"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                        <td style="text-align: center">
+                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[0].value
+                            && item.deviceModel.deviceType != deviceTypeList[1].value
+                            && item.deviceModel.deviceType != deviceTypeList[2].value)" @click="switchEle(item,index,3)">软重启
+                            </button>
                         </td>
-                        <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType == deviceTypeList[4].value || item.deviceModel.deviceType == deviceTypeList[5].value)"
-                                   type="text" v-model="item.deviceModel.setpasswd"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                        <td style="text-align: center">
+                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[4].value
+                            && item.deviceModel.deviceType != deviceTypeList[5].value)" @click="switchEle(item,index,4)">硬重启
+                            </button>
+                        </td>
+                        <td style="text-align: center">
+                            <button :title="getLevelUpUrl(item)"
+                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.deviceModel.deviceType != deviceTypeList[0].value"
+                                    @click="levelUp(item)">升级
+                            </button>
+                        </td>
+                        <td style="text-align: center">
+                            <i class="fa fa-warning" style="color: red;"
+                               title="设备电流为0"
+                               v-show="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.amp == 0"></i>
+                            <i class="fa fa-warning" style="color: red;"
+                               title="无设备有电流"
+                               v-show="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length ==0 && item.amp != 0"></i>
                         </td>
                     </tr>
                     </tbody>
-                    <tbody v-show="currentFloor == floorList[1]">
-                    <tr v-for="(item,index) in doList24">
-                        <td>设备{{index+13}}</td>
+                    <tbody v-show=" currentFloor== floorList[1]">
+                    <tr v-for="(item,index) in data19.dolist" v-show="index>11 && index < 24">
+                        <td>设备{{index+1}}</td>
                         <td>
-                            <select type="select_one" v-if="item.deviceModel" v-model="item.deviceModel.deviceType" @change="$forceUpdate();">
-                                <option v-for="childItem in deviceTypeList" :value="childItem.value" v-text="childItem.name"></option>
-                            </select>
-                        </td>
-                        <select type="select_one" v-model="item.deviceModel.deviceTypeNo"
-                                v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0">
-                            <option v-for="(childItem,index) in getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)" :value="index+1"
-                                    v-text="childItem"></option>
-                        </select>
-                        <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0" type="text" v-model="item.deviceModel.ip"
-                                   style="height: 29px;width: 85%;font-size: 13px">
+                            {{getDeviceTypeNameByDeviceType(item.deviceModel.deviceType)}}
+                            <span v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)[item.deviceModel.deviceTypeNo-1]">（{{getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType)[item.deviceModel.deviceTypeNo-1]}}）</span>
                         </td>
                         <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType != deviceTypeList[4].value
-                                            && item.deviceModel.deviceType != deviceTypeList[5].value
-                                            && item.deviceModel.deviceType != deviceTypeList[6].value)"
-                                   type="text" v-model="item.deviceModel.port"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                            {{item.status == 0?"断电":"通电"}}
+                        </td>
+                        <td>{{item.volt}}</td>
+                        <td>{{item.amp}}</td>
+                        <td>
+                            <button :disabled="item.status == 0" @click="switchEle(item,index,1)">断电</button>
                         </td>
                         <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType == deviceTypeList[4].value || item.deviceModel.deviceType == deviceTypeList[5].value)
-                                            && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                   type="text" v-model="item.deviceModel.getpasswd"
-                                   style="height: 29px;width: 70%;font-size: 13px">
-
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType != deviceTypeList[4].value && item.deviceModel.deviceType != deviceTypeList[5].value)
-                                            && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                   type="text" v-model="item.deviceModel.key"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                            <button :disabled="item.status == 1" @click="switchEle(item,index,2)">通电</button>
                         </td>
                         <td>
-                            <input v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0
-                                            && (item.deviceModel.deviceType == deviceTypeList[4].value || item.deviceModel.deviceType == deviceTypeList[5].value)"
-                                   type="text" v-model="item.deviceModel.setpasswd"
-                                   style="height: 29px;width: 70%;font-size: 13px">
+                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[0].value
+                            && item.deviceModel.deviceType != deviceTypeList[1].value
+                            && item.deviceModel.deviceType != deviceTypeList[2].value)" @click="switchEle(item,index,3)">软重启
+                            </button>
+                        </td>
+                        <td>
+                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[4].value
+                            && item.deviceModel.deviceType != deviceTypeList[5].value)" @click="switchEle(item,index,4)">硬重启
+                            </button>
+                        </td>
+                        <td>
+                            <button :title="getLevelUpUrl(item)"
+                                    v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.deviceModel.deviceType != deviceTypeList[0].value"
+                                    @click="levelUp(item)">升级
+                            </button>
+                        </td>
+                        <td>
+                            <i class="fa fa-warning" style="color: red;"
+                               title="设备电流为0"
+                               v-show="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.amp == 0"></i>
+                            <i class="fa fa-warning" style="color: red;"
+                               title="无设备有电流"
+                               v-show="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length ==0 && item.amp != 0"></i>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </ul>
         </div>
+        <div class="user_tong_kj">
+            <ul class="forms_box" style="float: none">
+                <li>
+                    <label style="width: auto;">门锁控制</label>
+                </li>
+                <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1" style="table-layout: fixed">
+                    <tbody>
+                    <tr>
+                        <td width="50%">
+                            前门状态（设备柜/一体化柜）
+                        </td>
+                        <td width="30%">
+                            {{this.getDoorStatusNameByStatus(this.data20.hwequcabfrontdoorstatus)}}
+                        </td>
+                        <td width="20%">
+                            <button v-show="this.data20.hwequcabfrontdoorstatus == 0" @click="openDoor(3,2)">开门</button>
+                            <button v-show="this.data20.hwequcabfrontdoorstatus == 1" @click="openDoor(3,1)">锁门</button>
+                            <span v-show="this.data20.hwequcabfrontdoorstatus == 255">无效</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            后门状态（设备柜/一体化柜）
+                        </td>
+                        <td>
+                            {{this.getDoorStatusNameByStatus(this.data20.hwequcabbackdoorstatus)}}
+                        </td>
+                        <td>
+                            <button v-show="this.data20.hwequcabbackdoorstatus == 0" @click="openDoor(4,2)">开门</button>
+                            <button v-show="this.data20.hwequcabbackdoorstatus == 1" @click="openDoor(4,1)">锁门</button>
+                            <span v-show="this.data20.hwequcabbackdoorstatus == 255">无效</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            前门状态（电池柜）
+                        </td>
+                        <td>
+                            {{this.getDoorStatusNameByStatus(this.data20.hwbatcabfrontdoorstatus)}}
+                        </td>
+                        <td>
+                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 0" @click="openDoor(1,2)">开门</button>
+                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 1" @click="openDoor(1,1)">锁门</button>
+                            <span v-show="this.data20.hwbatcabfrontdoorstatus == 255">无效</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            后门状态（电池柜）
+                        </td>
+                        <td>
+                            {{this.getDoorStatusNameByStatus(this.data20.hwbatcabbackdoorstatus)}}
+                        </td>
+                        <td>
+                            <button v-show="this.data20.hwbatcabbackdoorstatus == 0" @click="openDoor(2,2)">开门</button>
+                            <button v-show="this.data20.hwbatcabbackdoorstatus == 1" @click="openDoor(2,1)">锁门</button>
+                            <span v-show="this.data20.hwbatcabbackdoorstatus == 255">无效</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ul>
+        </div>
+
+        <div class="user_tong_kj">
+            <ul class="forms_box" style="float: none">
+                <li>
+                    <label style="width: auto;">防雷控制器控制</label>
+                </li>
+                <div v-for="(item, index) in data27.spdlist">
+                    <div class="yzhBtn active" style="width: 100px;">
+                        防雷卡控制器{{index+1}}
+                    </div>
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1 yzhSmallTable"
+                           style="table-layout: fixed;font-size: 12px;margin-bottom: 4px">
+                        <tbody>
+                        <tr>
+                            <td width="30%">
+                                <label style="font-size: 12px">雷击次数</label>
+                            </td>
+                            <td width="35%">
+                                <label>{{item.struck_cnt}}</label>
+                            </td>
+                            <td width="35%">
+                                <button @click="clearSpdCount(item)">清零</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
+        </div>
+
         <div class="hard forms_box">
             <div class="tong_btn text-align-center">
-                <a class="btn_blue" style="width: 100px" @click="submit()">录入
+                <a class="btn_red" style="width: 160px" @click="dialogVisible = true">重启ETC门架监控控制器
                     <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
                 </a>
-                <span v-show="afterSubmit">录入成功</span>
+                <span v-show="afterSubmit">重启成功</span>
             </div>
         </div>
+
+        <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+            <span>确认重启ETC门架监控控制器吗？</span>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="reStart()">确 定</el-button>
+          </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -138,10 +233,10 @@
                 data12: {
                     dolist: []
                 },
-                doList12: [],
-                doList24: [],
+                data19: {
+                    dolist: []
+                },
                 data20: {},
-                data22: {},
                 data27: {},
                 /** 配电层列表 */
                 floorList: [
@@ -162,11 +257,20 @@
 
                 ],
                 submitting: false,
-                afterSubmit: false,
+                dialogVisible: false
             }
         },
         computed: {},
         methods: {
+            getDeviceTypeNameByDeviceType(deviceType) {
+                let deviceTypeName;
+                this.deviceTypeList.forEach((item) => {
+                    if (item.value == deviceType) {
+                        deviceTypeName = item.name;
+                    }
+                })
+                return deviceTypeName;
+            },
             getDeviceTypeNoListByDeviceType(deviceType) {
                 if (deviceType == this.deviceTypeList[0].value || deviceType == this.deviceTypeList[6].value) {
                     return ["主", "备"]
@@ -185,10 +289,9 @@
                 let deviceTypeNo = doListItemName.slice(deviceType.length, deviceType.length + 1);
                 let deviceModel = {
                     deviceType: deviceType,
-                    deviceName: deviceName,
+                    name: deviceName,
                     deviceTypeNo: deviceTypeNo
                 };
-
                 return deviceModel;
             },
             getDeviceModelByDoListName(doListItemName) {
@@ -196,7 +299,7 @@
                     return;
                 }
                 let deviceList = [];
-                let deviceModel;
+                let deviceModel = {};
                 if (this.stringUtils.contain(doListItemName, "rsu")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "rsu");
                     deviceList = this.data12.rsulist;
@@ -208,7 +311,7 @@
                     deviceList = this.data12.vehplate900list;
                 } else if (this.stringUtils.contain(doListItemName, "cam")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "cam");
-                    deviceList = this.data12.camlist;
+                    deviceList = this.data12.camList;
                 } else if (this.stringUtils.contain(doListItemName, "ipswitch")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "ipswitch");
                     deviceList = this.data12.ipswitchlist;
@@ -222,41 +325,94 @@
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "do");
                     deviceList = [];
                 }
-                // console.log("doListItemName",doListItemName);
-                // console.log("deviceList",deviceList);
-                // console.log("deviceName", deviceModel.deviceName);
-                if (deviceList.length != 0) {
-                    for (let i = 0; i < deviceList.length; i) {
+                if (deviceList && deviceList.length != 0) {
+                    for (let i = 0; i < deviceList.length; i++) {
                         let deviceItem = deviceList[i];
-                        console.log("name", deviceItem.name);
-                        if (deviceItem.name == deviceModel.deviceName) {
+                        if (deviceItem.name == deviceModel.name) {
                             deviceItem.deviceType = deviceModel.deviceType;
                             deviceItem.deviceTypeNo = deviceModel.deviceTypeNo;
+                            return deviceItem;
                         }
-                        return deviceItem;
                     }
                 } else {
                     return deviceModel;
                 }
             },
-            submit() {
+            switchEle(item, index, type) {
+                //type:1断电，2通电，3软重启，硬重启
+                let doItem = "do" + (index + 1);
+                let params = {};
+                params[doItem] = type + ""
+                this.request.get18Data(this, params, (data) => {
+                    this.$message({type: "success", message: "操作成功"});
+                })
+            },
+            getLevelUpUrl(item) {
+                let url;
+                if (item.deviceModel.deviceType == this.deviceTypeList[4].value
+                    || item.deviceModel.deviceType == this.deviceTypeList[5].value
+                    || item.deviceModel.deviceType == this.deviceTypeList[6].value) {
+                    url = "https://" + item.deviceModel.ip;
+                } else {
+                    url = "http://" + item.deviceModel.ip;
+                }
+                return url;
+            },
+            levelUp(item) {
+                let url = this.getLevelUpUrl(item);
+                window.open(url);
+            },
+            getDoorStatusNameByStatus(status) {
+                if (status == 0) {
+                    return "上锁";
+                } else if (status == 1) {
+                    return "开锁";
+                } else if (status == 255) {
+                    return "无效";
+                }
+            },
+            openDoor(cabineid, operate) {
+                //cabineid：1电池柜前门锁，2电池柜后门锁，3设备柜前门锁，4设备柜后门锁；
+                //operate：1关锁，2开锁
+                let param = {
+                    cabineid: cabineid,
+                    operate: operate,
+                    opt: 2
+                }
+                this.request.get22Data(this, param, (data) => {
+                    this.data22 = data;
+                })
+            },
+            clearSpdCount(item) {
+                //clearcounter：0保持，1清零
+                let param = {
+                    spdlist: [{
+                        spdid: item.spdid,
+                        clearcounter: 1
+                    }],
+                    opt: 2
+                }
+                this.request.get27Data(this, param, (data) => {
+                    console.log(data);
+                })
+            },
+            reStart() {
+                this.dialogVisible = false
+                //0：保持 1：重启
+                let param = {
+                    sysreset: 1,
+                    opt: 2
+                }
                 this.submitting = true;
-
-                this.data12.dolist.forEach(doListItem => {
-
-
-                });
-
-                let params = this.jquery.extend({opt: 2}, this.data12);
-                this.request.get12Data(this, params, (data) => {
+                this.request.get20Data(this, param, (data) => {
                     this.submitting = false;
+                    console.log(data);
                     this.afterSubmit = true;
                     setTimeout(() => {
                         this.afterSubmit = false;
                     }, 2000)
                 })
             }
-
         },
         mounted() {
             this.request.get12Data(this, null, (data) => {
@@ -268,16 +424,24 @@
                         doListItem.deviceModel = deviceModel;
                     }
                 });
-                this.doList12 = data.dolist.slice(0, 11);
-                this.doList24 = data.dolist.slice(12, 23);
+                this.request.get19Data(this, null, (data) => {
+                    this.data19 = data;
+                    data.dolist.forEach((doListItem) => {
+                        let doListItemName = doListItem.name;
+                        let deviceModel = this.getDeviceModelByDoListName(doListItemName);
+                        if (deviceModel) {
+                            doListItem.deviceModel = deviceModel;
+                        }
+                    });
+                })
             })
-            this.request.get20Data(this, (data) => {
+            this.request.get20Data(this, null, (data) => {
                 this.data20 = data;
             })
-            this.request.get22Data(this, (data) => {
+            this.request.get22Data(this, null, (data) => {
                 this.data22 = data;
             })
-            this.request.get27Data(this, (data) => {
+            this.request.get27Data(this, null, (data) => {
                 this.data27 = data;
             })
         }

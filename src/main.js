@@ -8,6 +8,7 @@ import jquery from 'jquery';
 import vueUploads from "vue-uploads";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import JsonExcel from 'vue-json-excel'
 
 import App from './App.vue'
 import store from './store'
@@ -18,6 +19,7 @@ import config from "./config"
 import stringUtils from "@/stringUtils";
 
 Vue.use(ElementUI);
+Vue.component('downloadExcel', JsonExcel)
 
 Vue.config.productionTip = false
 Vue.prototype.request = request

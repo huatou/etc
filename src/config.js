@@ -3,7 +3,7 @@
 const DEV = "DEV";
 const PROD = "PROD";
 
-const PROFILE = DEV
+const PROFILE = PROD
 
 export default {
     IS_DEV() {

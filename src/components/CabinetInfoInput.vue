@@ -210,7 +210,6 @@
                 <a class="btn_blue" style="width: 100px" @click="submit()">录入
                     <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
                 </a>
-                <span v-show="afterSubmit">录入成功</span>
             </div>
         </div>
     </div>
@@ -261,7 +260,6 @@
                     text: '亚邦'
                 }],
                 submitting: false,
-                afterSubmit: false,
                 /** 防雷器厂商型号列表 */
                 spdFactoryList: [
                     {
@@ -292,10 +290,7 @@
                 let params = this.jquery.extend({opt: 2}, this.data12);
                 this.request.get12Data(this, params, (data) => {
                     this.submitting = false;
-                    this.afterSubmit = true;
-                    setTimeout(() => {
-                        this.afterSubmit = false;
-                    }, 2000)
+                    this.$message({type: "success", message: "修改成功"});
                 })
             }
 
@@ -304,13 +299,13 @@
             this.request.get12Data(this, null, (data) => {
                 this.data12 = data;
             })
-            this.request.get20Data(this, (data) => {
+            this.request.get20Data(this, null, (data) => {
                 this.data20 = data;
             })
-            this.request.get22Data(this, (data) => {
+            this.request.get22Data(this, null, (data) => {
                 this.data22 = data;
             })
-            this.request.get27Data(this, (data) => {
+            this.request.get27Data(this, null, (data) => {
                 this.data27 = data;
             })
         }

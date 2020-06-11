@@ -131,7 +131,6 @@
                 <a class="btn_blue" style="width: 100px" @click="submit()">录入
                     <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
                 </a>
-                <span v-show="afterSubmit">录入成功</span>
             </div>
         </div>
     </div>
@@ -170,7 +169,6 @@
 
                 ],
                 submitting: false,
-                afterSubmit: false,
             }
         },
         computed: {
@@ -231,7 +229,7 @@
                     deviceList = this.data12.vehplate900list;
                 } else if (this.stringUtils.contain(doListItemName, "cam")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "cam");
-                    deviceList = this.data12.camlist;
+                    deviceList = this.data12.camList;
                 } else if (this.stringUtils.contain(doListItemName, "ipswitch")) {
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "ipswitch");
                     deviceList = this.data12.ipswitchlist;
@@ -245,7 +243,7 @@
                     deviceModel = this.getDeviceModelNameByDeviceType(doListItemName, "do");
                     deviceList = [];
                 }
-                if (deviceList.length != 0) {
+                if (deviceList && deviceList.length != 0) {
                     for (let i = 0; i < deviceList.length; i++) {
                         let deviceItem = deviceList[i];
                         if (deviceItem.name == deviceModel.name) {
@@ -333,10 +331,7 @@
                 this.submitting = true;
                 this.request.get12Data(this, params, (data) => {
                     this.submitting = false;
-                    this.afterSubmit = true;
-                    setTimeout(() => {
-                        this.afterSubmit = false;
-                    }, 2000)
+                    this.$message({type: "success", message: "修改成功"});
                 })
             }
 
@@ -352,13 +347,13 @@
                     }
                 });
             })
-            this.request.get20Data(this, (data) => {
+            this.request.get20Data(this, null, (data) => {
                 this.data20 = data;
             })
-            this.request.get22Data(this, (data) => {
+            this.request.get22Data(this, null, (data) => {
                 this.data22 = data;
             })
-            this.request.get27Data(this, (data) => {
+            this.request.get27Data(this, null, (data) => {
                 this.data27 = data;
             })
         }

@@ -82,6 +82,10 @@
                         to: '/index/device-warning',
                         icon: 'ico_alert',
                         text: '重要设备报警'
+                    }, {
+                        to: '/index/device-info-import-export',
+                        icon: 'ico_list',
+                        text: '设备信息导入导出'
                     },
                 ],
                 data12: null,

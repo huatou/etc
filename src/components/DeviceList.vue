@@ -23,7 +23,7 @@
                     <td style="vertical-align: top">
                         <div style="overflow: scroll;height: 600px">
                             <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1"
-                                   style="table-layout: fixed;height: 500px;overflow: scroll">
+                                   style="table-layout: fixed;overflow: scroll">
                                 <thead>
                                 <tr>
                                     <th width="50%" style="padding: 4px 0">字段名</th>
@@ -105,6 +105,10 @@
                     },
                     {
                         text: "Atlas信息",
+                        active: false
+                    },
+                    {
+                        text: "门架监控控制器信息",
                         active: false
                     },
                     {
@@ -191,6 +195,94 @@
                 } else if (statusType == 255) {
                     return "环境湿度传感器未接";
                 }
+            },
+            getCoolingDevicesModeNameByMode(mode) {
+                if (mode == 1) {
+                    return "纯风扇模式";
+                } else if (mode == 2) {
+                    return "纯空调模式";
+                } else if (mode == 3) {
+                    return "智能模式";
+                } else if (mode == 255) {
+                    return "未知";
+                }
+            },
+            getBatRunningStateNameByState(batrunningstate) {
+                if (batrunningstate == 1) {
+                    return "电池在线";
+                } else if (batrunningstate == 2) {
+                    return "电池断电";
+                } else if (batrunningstate == 3) {
+                    return "电池处于浮充状态";
+                } else if (batrunningstate == 4) {
+                    return "电池处于充电状态";
+                } else if (batrunningstate == 5) {
+                    return "电池处于放电状态";
+                } else if (batrunningstate == 255) {
+                    return "电池单元工作状态未知";
+                }
+            },
+            getCabinetTypeNameByType(cabinettype) {
+                if (cabinettype == 1) {
+                    return "华为双机柜双开门";
+                } else if (cabinettype == 2) {
+                    return "华为双机柜单开门";
+                } else if (cabinettype == 3) {
+                    return "华为单机柜双开门";
+                } else if (cabinettype == 4) {
+                    return "华为单机柜单开门";
+                } else if (cabinettype == 5) {
+                    return "中兴";
+                } else if (cabinettype == 6) {
+                    return "金晟安";
+                } else if (cabinettype == 7) {
+                    return "爱特思";
+                } else if (cabinettype == 8) {
+                    return "诺龙";
+                } else if (cabinettype == 9) {
+                    return "容尊堡";
+                } else if (cabinettype == 10) {
+                    return "亚邦";
+                }
+            },
+
+            getData12() {
+                this.request.get12Data(this, null, (data) => {
+                        this.currentItem.json = JSON.stringify(data, null, 2);
+                        this.currentItemData = data;
+                        this.showData = [];
+                        this.showData.push({
+                            keyName: "消息类型",
+                            value: data.messagetype
+                        }, {
+                            keyName: "机柜类型",
+                            value: this.getCabinetTypeNameByType(data.cabinettype)
+                        }, {
+                            keyName: "机柜厂商",
+                            value: data.cabinetfactroy
+                        }, {
+                            keyName: "etc 门架路网编号",
+                            value: data.flagnetroadid
+                        }, {
+                            keyName: "etc 门架路段编号",
+                            value: data.flagroadid
+                        }, {
+                            keyName: "etc 门架编号",
+                            value: data.flagid
+                        }, {
+                            keyName: "etc 门架序号",
+                            value: data.posid
+                        }, {
+                            keyName: "行车方向",
+                            value: data.direction
+                        }, {
+                            keyName: "行车方向说明",
+                            value: data.dirdescription
+                        });
+                        console.log("this.showData", this.showData);
+                        this.$forceUpdate();
+                    }
+                )
             },
             getData14() {
                 this.request.get14Data(this, (data) => {
@@ -369,85 +461,46 @@
                         keyName: "采集时间",
                         value: data.opttime
                     }, {
-                        keyName: "车牌识别仪数量",
-                        value: data.vehplatecnt
+                        keyName: "交换机数量",
+                        value: data.ipswitchcnt
                     });
-                    if (data.vehplatelist) {
-                        for (let i = 0; i < data.vehplatelist.length; i++) {
-                            let vehplateItem = data.vehplatelist[i];
-                            let rsuListItemLst = [{
+                    if (data.ipswitchlist) {
+                        for (let i = 0; i < data.ipswitchlist.length; i++) {
+                            let ipswitchItem = data.ipswitchlist[i];
+                            let ipswitchItemList = [{
                                 keyName: "名称",
-                                value: vehplateItem.name
+                                value: ipswitchItem.name
                             }, {
-                                keyName: "识别仪ip地址",
-                                value: vehplateItem.ip
-                            }, {
-                                keyName: "识别仪端口",
-                                value: vehplateItem.port
-                            }, {
-                                keyName: "用户名密码",
-                                value: vehplateItem.key
-                            }, {
-                                keyName: "是否在线",
-                                value: vehplateItem.isOnline == 0 ? "不在线" : "在线"
-                            }, {
-                                keyName: "流水号",
-                                value: vehplateItem.picstateid
-                            }, {
-                                keyName: "门架编号,全网唯一编号",
-                                value: vehplateItem.gantryid
-                            }, {
-                                keyName: "状态采集时间",
-                                value: vehplateItem.statetime
-                            }, {
-                                keyName: "积压图片流水数",
-                                value: vehplateItem.overstockImageJourCount
-                            }, {
-                                keyName: "积压图片数",
-                                value: vehplateItem.overstockImageCount
-                            }, {
-                                keyName: "相机编号（101~299）",
-                                value: vehplateItem.cameranum
-                            }, {
-                                keyName: "车道编号",
-                                value: vehplateItem.lanenum
-                            }, {
-                                keyName: "连接状态",
-                                value: vehplateItem.connectstatus == 0 ? "未连接" : "已连接"
-                            }, {
-                                keyName: "工作状态",
-                                value: vehplateItem.workstatus == 0 ? "异常" : "正常"
-                            }, {
-                                keyName: "补光灯的工作状态",
-                                value: vehplateItem.lightworkstatus == 0 ? "异常" : "正常"
-                            }, {
-                                keyName: "识别成功率",
-                                value: vehplateItem.recognitionrate
-                            }, {
-                                keyName: "固件版本",
-                                value: vehplateItem.hardwareversion
-                            }, {
-                                keyName: "软件版本",
-                                value: vehplateItem.softwareversion
-                            }, {
-                                keyName: "设备从开机到现在的运行时间（秒）",
-                                value: vehplateItem.runningtime
-                            }, {
-                                keyName: "厂商",
-                                value: vehplateItem.brand
+                                keyName: "生产商",
+                                value: ipswitchItem.factoryname
                             }, {
                                 keyName: "设备型号",
-                                value: vehplateItem.devicetype
+                                value: ipswitchItem.devicemodel
                             }, {
-                                keyName: "状态码",
-                                value: vehplateItem.statuscode == 0 ? "正常" : "状态异常" + vehplateItem.statuscode + "：请找厂家查询状态码"
+                                keyName: "IP地址",
+                                value: ipswitchItem.ip
                             }, {
-                                keyName: "状态描述 由厂商自定义",
-                                value: vehplateItem.statusmsg
+                                keyName: "设备类型",
+                                value: ipswitchItem.type ? ipswitchItem.type == "switch" ? "交换机" : "防火墙" : ""
+                            }, {
+                                keyName: "是否在线",
+                                value: ipswitchItem.isOnline == 0 ? "不在线" : "在线"
+                            }, {
+                                keyName: "CPU使用率",
+                                value: ipswitchItem.cpuusage
+                            }, {
+                                keyName: "内存使用率",
+                                value: ipswitchItem.memusage
+                            }, {
+                                keyName: "温度",
+                                value: ipswitchItem.temperature
+                            }, {
+                                keyName: "端口数",
+                                value: ipswitchItem.portcount
                             }];
                             this.showData.push({
-                                keyName: "车牌识别仪" + (i + 1),
-                                list: rsuListItemLst
+                                keyName: "交换机" + (i + 1),
+                                list: ipswitchItemList
                             });
                         }
                     }
@@ -457,7 +510,7 @@
             }
             ,
             getData20() {
-                this.request.get20Data(this, (data) => {
+                this.request.get20Data(this, null, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
                     this.showData = [];
@@ -730,17 +783,7 @@
                         value: data.hwdcairruntime2
                     }, {
                         keyName: "温控模式",
-                        value: ()=>{
-                            if(data.hwcoolingdevicesmode == 1){
-                                return "纯风扇模式";
-                            }else if(data.hwcoolingdevicesmode == 2){
-                                return "纯空调模式";
-                            }else if(data.hwcoolingdevicesmode == 3){
-                                return "智能模式";
-                            }else if(data.hwcoolingdevicesmode == 255){
-                                return "未知";
-                            }
-                        }
+                        value: this.getCoolingDevicesModeNameByMode(data.hwcoolingdevicesmode)
                     }, {
                         keyName: "直流防雷器故障告警",
                         value: data.hwdcspdalarmtraps == 0 ? "正常" : data.hwdcspdalarmtraps == 1 ? "直流防雷器故障告警" : "防雷器传感器未接"
@@ -788,63 +831,62 @@
                         value: data.hwacbgroup_moduleloss_alarm == 0 ? "正常" : data.hwacbgroup_moduleloss_alarm == 1 ? "告警" : "无效"
                     }, {
                         keyName: "电池状态",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: this.getBatRunningStateNameByState(data.hwacbgroupbatrunningstate)
                     }, {
                         keyName: "烟雾传感器状态（设备柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwsmokesensorstatus == 0 ? "正常" : "报警"
                     }, {
                         keyName: "烟雾传感器状态（电池柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwsmokesensorstatus2 == 0 ? "正常" : "报警"
                     }, {
                         keyName: "水浸传感器状态（设备柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwwatersensorstatus == 0 ? "正常" : "报警"
                     }, {
                         keyName: "水浸传感器状态（电池柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwwatersensorstatus2 == 0 ? "正常" : "报警"
                     }, {
                         keyName: "门磁传感器状态（设备柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwdoorsensorstatus == 0 ? "正常" : "报警"
                     }, {
                         keyName: "门磁传感器状态（电池柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwdoorsensorstatus2 == 0 ? "正常" : "报警"
                     }, {
                         keyName: "空调地址（设备柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwdcairequipaddress == 0 ? "正常" : "报警"
                     }, {
                         keyName: "空调地址（电池柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwdcairequipaddress2 == 0 ? "正常" : "报警"
                     }, {
                         keyName: "温湿度地址（设备柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwtemhumequipaddress == 0 ? "正常" : "报警"
                     }, {
                         keyName: "温湿度地址（电池柜）",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwtemhumequipaddress2 == 0 ? "正常" : "报警"
                     }, {
                         keyName: "单个电池电压",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwacbbatvolt
                     }, {
                         keyName: "单个电池电流",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwacbbatcurr
                     }, {
                         keyName: "单个电池串SOH",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwacbbatsoh
                     }, {
                         keyName: "单个电池容量",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwacbbatcapacity
                     }, {
                         keyName: "电池柜前门锁状态",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwbatcabfrontdoorstatus == 0 ? "上锁" : data.hwbatcabfrontdoorstatus == 1 ? "开锁" : "无效"
                     }, {
                         keyName: "电池柜后门锁状态",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwbatcabbackdoorstatus == 0 ? "上锁" : data.hwbatcabbackdoorstatus == 1 ? "开锁" : "无效"
                     }, {
                         keyName: "设备柜前门锁状态",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwequcabfrontdoorstatus == 0 ? "上锁" : data.hwequcabfrontdoorstatus == 1 ? "开锁" : "无效"
                     }, {
                         keyName: "设备柜后门锁状态",
-                        value: data.cabinettype == 1 ? "华为" : "未知"
+                        value: data.hwequcabbackdoorstatus == 0 ? "上锁" : data.hwequcabbackdoorstatus == 1 ? "开锁" : "无效"
                     });
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }
@@ -853,6 +895,61 @@
                 this.request.get23Data(this, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "控制器IP地址",
+                        value: data.vmctrl_ipaddr
+                    }, {
+                        keyName: "采集时间",
+                        value: data.opttime
+                    }, {
+                        keyName: "防火墙数量",
+                        value: data.firewarecnt
+                    });
+                    if (data.firewarelist) {
+                        for (let i = 0; i < data.firewarelist.length; i++) {
+                            let firewareItem = data.firewarelist[i];
+                            let firewareItemList = [{
+                                keyName: "名称",
+                                value: firewareItem.name
+                            }, {
+                                keyName: "生产商",
+                                value: firewareItem.factoryname
+                            }, {
+                                keyName: "设备型号",
+                                value: firewareItem.devicemodel
+                            }, {
+                                keyName: "IP地址",
+                                value: firewareItem.ip
+                            }, {
+                                keyName: "设备类型",
+                                value: firewareItem.type ? firewareItem.type == "fireware" ? "防火墙" : "交换机" : ""
+                            }, {
+                                keyName: "是否在线",
+                                value: firewareItem.isOnline == 0 ? "不在线" : "在线"
+                            }, {
+                                keyName: "CPU使用率",
+                                value: firewareItem.cpuusage
+                            }, {
+                                keyName: "内存使用率",
+                                value: firewareItem.memusage
+                            }, {
+                                keyName: "温度",
+                                value: firewareItem.temperature
+                            }, {
+                                keyName: "端口数",
+                                value: firewareItem.portcount
+                            }];
+                            this.showData.push({
+                                keyName: "防火墙" + (i + 1),
+                                list: firewareItemList
+                            });
+                        }
+                    }
+                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }
@@ -861,14 +958,133 @@
                 this.request.get24Data(this, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "控制器IP地址",
+                        value: data.vmctrl_ipaddr
+                    }, {
+                        keyName: "采集时间",
+                        value: data.opttime
+                    }, {
+                        keyName: "Atlas数量",
+                        value: data.atlascnt
+                    });
+                    if (data.atlaslist) {
+                        for (let i = 0; i < data.atlaslist.length; i++) {
+                            let atlasItem = data.atlaslist[i];
+                            let atlasItemList = [{
+                                keyName: "主机名称",
+                                value: atlasItem.hostname
+                            }, {
+                                keyName: "是否在线",
+                                value: atlasItem.isOnline == 0 ? "不在线" : "在线"
+                            }, {
+                                keyName: "日期时间",
+                                value: atlasItem.datetime
+                            }, {
+                                keyName: "CPU占用率",
+                                value: atlasItem.cpurate
+                            }, {
+                                keyName: "CPU温度",
+                                value: atlasItem.cputemp
+                            }, {
+                                keyName: "内存总数",
+                                value: atlasItem.mentotal
+                            }, {
+                                keyName: "已使用内存",
+                                value: atlasItem.menused
+                            }, {
+                                keyName: "内存使用率",
+                                value: atlasItem.menrate
+                            }, {
+                                keyName: "MMC数量",
+                                value: atlasItem.mmccount
+                            }];
+                            this.showData.push({
+                                keyName: "Atlas" + (i + 1),
+                                list: atlasItemList
+                            });
+                        }
+                    }
+                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }
             ,
             getData27() {
-                this.request.get27Data(this, (data) => {
+                this.request.get27Data(this, null, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "控制器IP地址",
+                        value: data.vmctrl_ipaddr
+                    }, {
+                        keyName: "采集时间",
+                        value: data.opttime
+                    }, {
+                        keyName: "spd数量",
+                        value: data.spdcnt
+                    });
+                    if (data.spdlist) {
+                        for (let i = 0; i < data.spdlist.length; i++) {
+                            let spdItem = data.spdlist[i];
+                            let spdItemList = [{
+                                keyName: "编号",
+                                value: spdItem.spdid
+                            }, {
+                                keyName: "名称",
+                                value: spdItem.name
+                            }, {
+                                keyName: "IP地址",
+                                value: spdItem.ip
+                            }, {
+                                keyName: "是否在线",
+                                value: spdItem.isOnline == 0 ? "不在线" : "在线"
+                            }, {
+                                keyName: "生产商",
+                                value: spdItem.factoryname
+                            }, {
+                                keyName: "防雷器温度",
+                                value: spdItem.spd_temp
+                            }, {
+                                keyName: "环境温度",
+                                value: spdItem.envi_temp
+                            }, {
+                                keyName: "当前雷击计数",
+                                value: spdItem.struck_cnt
+                            }, {
+                                keyName: "漏电流报警阈值",
+                                value: spdItem.leak_alarm_threshold
+                            }, {
+                                keyName: "防雷器寿命值0%~100%",
+                                value: spdItem.life_time
+                            }, {
+                                keyName: "防雷器脱扣状态报警",
+                                value: spdItem.remotestatusalarm == 0 ? "无报警" : "报警"
+                            }, {
+                                keyName: "线路&接地状态告警",
+                                value: spdItem.linegroundstatusalarm == 0 ? "无报警" : "报警"
+                            }, {
+                                keyName: "漏电流报警",
+                                value: spdItem.leakcuralarm == 0 ? "无报警" : "报警"
+                            }, {
+                                keyName: "雷击计数清零",
+                                value: spdItem.clearcounter == 0 ? "保持" : "清零"
+                            }];
+                            this.showData.push({
+                                keyName: "spd" + (i + 1),
+                                list: spdItemList
+                            });
+                        }
+                    }
+                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }
@@ -877,6 +1093,33 @@
                 this.request.get28Data(this, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "接地检测器地址",
+                        value: data.spdresip
+                    }, {
+                        keyName: "接地检测器端口",
+                        value: data.spdresport
+                    }, {
+                        keyName: "是否在线",
+                        value: data.isOnline == 0 ? "不在线" : "在线"
+                    }, {
+                        keyName: "接地电阻值",
+                        value: data.grd_res
+                    }, {
+                        keyName: "电压值",
+                        value: data.grd_volt
+                    }, {
+                        keyName: "设备id",
+                        value: data.spdresid
+                    }, {
+                        keyName: "报警值",
+                        value: data.spdres_alarm_value
+                    });
+                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }
@@ -979,6 +1222,7 @@
                         }
                     }
                     console.log("this.showData", this.showData);
+                    this.$forceUpdate();
                 })
             }
             ,
@@ -986,6 +1230,69 @@
                 this.request.get30Data(this, (data) => {
                     this.currentItem.json = JSON.stringify(data, null, 2);
                     this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "控制器IP地址",
+                        value: data.vmctrl_ipaddr
+                    }, {
+                        keyName: "采集时间",
+                        value: data.opttime
+                    }, {
+                        keyName: "主机名称",
+                        value: data.hostname
+                    }, {
+                        keyName: "CPU占用率",
+                        value: data.cpurate
+                    }, {
+                        keyName: "CPU温度",
+                        value: data.cputemp
+                    }, {
+                        keyName: "内存总数",
+                        value: data.mentotal
+                    }, {
+                        keyName: "已使用内存",
+                        value: data.menused
+                    }, {
+                        keyName: "内存使用率",
+                        value: data.menrate
+                    }, {
+                        keyName: "CPU使用率报警",
+                        value: data.cpualarm == 0 ? "正常" : "报警"
+                    }, {
+                        keyName: "CPU温度报警",
+                        value: data.cputempalarm == 0 ? "正常" : "报警"
+                    }, {
+                        keyName: "内存使用率报警",
+                        value: data.memalarm == 0 ? "正常" : "报警"
+                    }, {
+                        keyName: "内核版本号",
+                        value: data.zimagever
+                    }, {
+                        keyName: "内核日期",
+                        value: data.zimagedate
+                    }, {
+                        keyName: "主程序CPU占用率",
+                        value: data.softrate
+                    }, {
+                        keyName: "主程序运行异常报警",
+                        value: data.softalarm == 0 ? "正常" : "报警"
+                    }, {
+                        keyName: "ksoftirqd进程CPU占用率",
+                        value: data.ksoftirqdrate
+                    }, {
+                        keyName: "kworker进程CPU占用率",
+                        value: data.kworkerrate
+                    }, {
+                        keyName: "网口2广播风暴报警",
+                        value: data.lan2broadcastalarm == 0 ? "正常" : "报警"
+                    }, {
+                        keyName: "网口2广播风暴报警信息",
+                        value: data.lan2broadcastalarmmesg
+                    });
+                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
                 })
             }

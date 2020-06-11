@@ -9,6 +9,7 @@ import DeviceList from "./components/DeviceList";
 import DeviceControl from "./components/DeviceControl";
 import OperationLog from "./components/OperationLog";
 import DeviceWarning from "./components/DeviceWarning";
+import DeviceInfoImportExport from "@/components/DeviceInfoImportExport";
 
 Vue.use(Router);
 const router = new Router({
@@ -62,6 +63,11 @@ const router = new Router({
                     path: '/index/device-warning',
                     name: 'OperationLog',
                     component: DeviceWarning
+                },
+                {
+                    path: '/index/device-info-import-export',
+                    name: 'DeviceInfoImportExport',
+                    component: DeviceInfoImportExport
                 }
             ]
         }

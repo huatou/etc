@@ -109,7 +109,6 @@
                         <a class="btn_blue" style="width: 100px" @click="submit()">录入
                             <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
                         </a>
-                        <span v-show="afterSubmit">录入成功</span>
                     </div>
                 </div>
             </ul>
@@ -157,7 +156,6 @@
 
                 ],
                 submitting: false,
-                afterSubmit: false
             }
         },
         methods: {
@@ -166,10 +164,7 @@
                 let params = this.jquery.extend({opt: 2}, this.data12);
                 this.request.get12Data(this, params, (data) => {
                     this.submitting = false;
-                    this.afterSubmit = true;
-                    setTimeout(() => {
-                        this.afterSubmit = false;
-                    }, 2000)
+                    this.$message({type: "success", message: "修改成功"});
                 })
             }
 
