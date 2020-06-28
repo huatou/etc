@@ -2,7 +2,8 @@
     <div class="right_main">
         <div class="user_tong_kj">
             <label>设备信息导入导出</label>
-            <div style="margin-top: 4px">
+            <div v-show="!needAuthority(3)" style="color: red">无权限批量设置数据</div>
+            <div style="margin-top: 4px" v-show="needAuthority(3)">
                 <el-button type="primary" size="small" @click="deviceInfoImport()">设备信息导入<i class="fa fa-sign-in" style="margin-left: 4px"></i></el-button>
                 <el-button type="primary" size="small" @click="deviceInfoExport()">设备信息导出<i class="fa fa-sign-out" style="margin-left: 4px"></i></el-button>
             </div>
@@ -50,7 +51,6 @@
             </table>
         </div>
         <el-dialog title="设备配置导入预览" :visible.sync="dialogTableVisible">
-
             <el-upload style="display: inline" ref="upload" :on-change="onChangeFile" :auto-upload="false" action=""
                        :multiple="false" :show-file-list="false"
                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
@@ -105,7 +105,6 @@
                 </tbody>
             </table>
         </el-dialog>
-
     </div>
 </template>
 
@@ -122,6 +121,10 @@
         },
         computed: {},
         methods: {
+            needAuthority(needAuthority) {
+                let currentUserAuthority = this.$store.getters.getAuthority;
+                return currentUserAuthority != null && currentUserAuthority >= needAuthority;
+            },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => v[j]))
             },
@@ -140,7 +143,7 @@
 
 
             },
-            onChangeFile(file) {
+            handleChange(file) {
                 this.importfxx(file.raw);
             },
             importfxx(obj) {
@@ -179,14 +182,14 @@
                         let arr = []
                         this.da.map(v => {
                             let obj = {}
-                            obj.text = v['设备名称']
-                            obj.deviceName = v['设备对应编码']
-                            obj.deviceType = v['设备类型对应编码']
+                            obj.text = v['设备名称'] + ""
+                            obj.deviceName = v['设备对应编码'] + ""
+                            obj.deviceType = v['设备类型对应编码'] + ""
                             obj.value = v['内容或IP地址']
-                            obj.key = v['属性编码（内容或IP地址）']
-                            obj.port = v['端口']
-                            obj.keyOrGetPassword = v['用户名密码或get密码']
-                            obj.setPassword = v['set密码']
+                            obj.key = v['属性编码（内容或IP地址）'] + ""
+                            obj.port = v['端口'] + ""
+                            obj.keyOrGetPassword = v['用户名密码或get密码'] + ""
+                            obj.setPassword = v['set密码'] + ""
                             arr.push(obj)
                         })
                         _this.importData = arr;
@@ -277,6 +280,11 @@
             }
         },
         mounted() {
+
+            if (!this.needAuthority(3)) {
+                return;
+            }
+
             this.request.get12Data(this, null, (data) => {
                 this.data12 = data;
 
@@ -416,6 +424,8 @@
 
                     {text: "接地电阻", key: "spdresip", value: data.spdresip, port: data.spdresport,},
                 )
+            }, (error) => {
+                this.data12 = {};
             })
         }
     }

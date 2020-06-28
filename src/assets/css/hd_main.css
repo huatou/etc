@@ -121,7 +121,7 @@ select {
 	fonts-size: 62.5%; /* 10 ÷ 16 × 100% = 62.5%
 	-webkit-text-size-adjust: 62.5%;
 	-ms-text-size-adjust: 62.5%
-	
+
 }*/
 
 body {
@@ -1545,7 +1545,7 @@ a:hover.nhd_img {
 	   -moz-border-top-left-radius: 3px;
 	    -ms-border-top-left-radius: 3px;
 	        border-top-left-radius: 3px;
-	
+
 	-webkit-border-bottom-left-radius: 3px;
 	   -moz-border-bottom-left-radius: 3px;
 	    -ms-border-bottom-left-radius: 3px;
@@ -1556,7 +1556,7 @@ a:hover.nhd_img {
 	   -moz-border-top-right-radius: 3px;
 	    -ms-border-top-right-radius: 3px;
 	        border-top-right-radius: 3px;
-	
+
 	-webkit-border-bottom-right-radius: 3px;
 	   -moz-border-bottom-right-radius: 3px;
 	    -ms-border-bottom-right-radius: 3px;
@@ -1951,9 +1951,8 @@ a:hover.nhd_img {
 }
 
 .hard span {
-    color: #FF0206;
+    color: #FFFFFF;
     font-size: 12px;
-    margin-left: 20px;
 }
 
 .user_tong_box {

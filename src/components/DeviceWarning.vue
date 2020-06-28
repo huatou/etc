@@ -23,7 +23,8 @@
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -45,11 +46,13 @@
                             <th width="15%">报警信息</th>
                             <th width="15%">报警等级</th>
                         </tr>
-                        <tr v-for="item in rsuList" v-show="(onlyShowWarngingRsu && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingRsu ">
+                        <tr v-for="item in rsuList"
+                            v-show="(onlyShowWarngingRsu && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingRsu ">
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -76,11 +79,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="item in camList" v-show="(onlyShowWarngingCam && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingCam ">
+                        <tr v-for="item in camList"
+                            v-show="(onlyShowWarngingCam && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingCam ">
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -103,11 +108,13 @@
                             <th width="15%">报警信息</th>
                             <th width="15%">报警等级</th>
                         </tr>
-                        <tr v-for="item in spdList" v-show="(onlyShowWarngingSpd && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingSpd ">
+                        <tr v-for="item in spdList"
+                            v-show="(onlyShowWarngingSpd && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingSpd ">
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -140,7 +147,8 @@
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -169,7 +177,8 @@
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -196,11 +205,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="item in spdResList" v-show="(onlyShowWarngingSpdRes && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingSpdRes ">
+                        <tr v-for="item in spdResList"
+                            v-show="(onlyShowWarngingSpdRes && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingSpdRes ">
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -223,11 +234,13 @@
                             <th width="15%">报警信息</th>
                             <th width="15%">报警等级</th>
                         </tr>
-                        <tr v-for="item in atlasList" v-show="(onlyShowWarngingAtlas && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingAtlas ">
+                        <tr v-for="item in atlasList"
+                            v-show="(onlyShowWarngingAtlas && item.value != '在线' && item.value != '正常' && item.value) ||!onlyShowWarngingAtlas ">
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -260,7 +273,8 @@
                             <td>{{item.keyName}}</td>
                             <td>{{item.value}}</td>
                             <td>
-                                <span style="color: #ff9d5b;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
+                                <span style="color: #ff9d5b;font-weight: bold;"
+                                      v-if="item.value && item.value != '在线' && item.value != '正常' && item.level != 2">一般告警</span>
                                 <span style="color: red;font-weight: bold;" v-if="item.value && item.value != '在线' && item.value != '正常' && item.level == 2">严重告警</span>
                             </td>
                         </tr>
@@ -305,6 +319,7 @@
                 onlyShowWarngingSpdRes: true,
                 onlyShowWarngingAtlas: true,
                 onlyShowWarngingcontroller: true,
+                interval: null
             }
         },
         computed: {},
@@ -410,487 +425,508 @@
                 } else if (cabinettype == 10) {
                     return "亚邦";
                 }
+            },
+            getData() {
+
+                this.cabinetList = [];
+                this.rsuList = [];
+                this.camList = [];
+                this.fireWareList = [];
+                this.ipSwitchList = [];
+                this.spdList = [];
+                this.spdResList = [];
+                this.atlasList = [];
+                this.controllerList = [];
+
+                this.request.get14Data(this, (data) => {
+                    if (!data.rsulist || data.rsulist.length == 0) {
+                        this.rsuList.push({
+                            keyName: "RSU控制器数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.rsulist.length; i++) {
+                            let rsuItem = data.rsulist[i];
+                            let isOnlineName = "";
+                            if (rsuItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (rsuItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.rsuList.push({
+                                keyName: "RSU控制器" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+
+
+                            let controlStatusName = "";
+                            if (rsuItem.controlstatus == 1) {
+                                controlStatusName = "PSAM卡复位失败";
+                            } else if (rsuItem.controlstatus == 2) {
+                                controlStatusName = "路侧单元天线头连接失败";
+                            } else if (rsuItem.controlstatus == 3) {
+                                controlStatusName = "路侧单元控制器初始化失败";
+                            }
+                            this.rsuList.push({
+                                keyName: "RSU控制器" + (i + 1) + "控制器工作状态",
+                                value: controlStatusName,
+                                level: 2
+                            });
+
+
+                            //psam卡列表
+                            if (!rsuItem.psamlist || rsuItem.psamlist.length == 0) {
+                                this.rsuList.push({
+                                    keyName: "RSU控制器" + (i + 1),
+                                    value: "PSAM列表（psamlist）为空"
+                                });
+                            } else {
+                                for (let j = 0; j < rsuItem.psamlist.length; j++) {
+                                    let psamItem = rsuItem.psamlist[j];
+                                    let psamStatusName = "";
+                                    if (psamItem.status == 1) {
+                                        psamStatusName = "正常";
+                                    } else if (psamItem.status == 2) {
+                                        psamStatusName = "异常";
+                                    } else if (psamItem.status == 3) {
+                                        psamStatusName = "未授权";
+                                    } else if (psamItem.status == 4) {
+                                        psamStatusName = "授权失败";
+                                    }
+                                    this.rsuList.push({
+                                        keyName: "RSU控制器" + (i + 1) + "-PSAM授权状态" + (j + 1),
+                                        value: psamStatusName
+                                    });
+                                }
+                            }
+
+                            //天线头列表
+                            if (!rsuItem.antennalist || rsuItem.antennalist.length == 0) {
+                                this.rsuList.push({
+                                    keyName: "RSU控制器" + (i + 1),
+                                    value: "天线头列表（antennalist）为空"
+                                });
+                            } else {
+                                for (let j = 0; j < rsuItem.antennalist.length; j++) {
+                                    let antennaItem = rsuItem.antennalist[j];
+                                    let antennaStatusName = "";
+                                    if (antennaItem.status == 0) {
+                                        antennaStatusName = "正常";
+                                    } else if (antennaItem.status == 1) {
+                                        antennaStatusName = "异常";
+                                    }
+                                    this.rsuList.push({
+                                        keyName: "RSU控制器" + (i + 1) + "-天线头状态 " + (j + 1),
+                                        value: antennaStatusName
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+                this.request.get15Data(this, (data) => {
+                    if (!data.vehplatelist || data.vehplatelist.length == 0) {
+                        this.camList.push({
+                            keyName: "车牌识别仪数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.vehplatelist.length; i++) {
+                            let camItem = data.vehplatelist[i];
+                            let isOnlineName = "";
+                            if (camItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (camItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.camList.push({
+                                keyName: "车牌识别仪" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+                            let workStatusName = "";
+                            if (camItem.workStatus == 0) {
+                                workStatusName = "异常";
+                            } else if (camItem.controlstatus == 1) {
+                                workStatusName = "正常";
+                            }
+                            this.camList.push({
+                                keyName: "车牌识别仪" + (i + 1) + "工作状态",
+                                value: workStatusName
+                            });
+
+
+                            let lightWorkStatusName = "";
+                            if (camItem.lightworkstatus == 0) {
+                                lightWorkStatusName = "异常";
+                            } else if (camItem.lightworkstatus == 1) {
+                                lightWorkStatusName = "正常";
+                            }
+                            this.camList.push({
+                                keyName: "车牌识别仪" + (i + 1) + "补光灯的工作状态",
+                                value: lightWorkStatusName
+                            });
+                        }
+                    }
+                });
+                this.request.get16Data(this, (data) => {
+                    if (!data.ipswitchlist || data.ipswitchlist.length == 0) {
+                        this.ipSwitchList.push({
+                            keyName: "交换机数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.ipswitchlist.length; i++) {
+                            let ipSwitchItem = data.ipswitchlist[i];
+                            let isOnlineName = "";
+                            if (ipSwitchItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (ipSwitchItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.ipSwitchList.push({
+                                keyName: "交换机" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+                        }
+                    }
+                })
+                this.request.get20Data(this, null, (data) => {
+                    this.cabinetList.push({
+                        keyName: "机柜动环是否在线",
+                        value: data.isonline == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "锂电池组是否在线",
+                        value: data.acbgroupbatonline == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "直流空调是否在线（设备柜）",
+                        value: data.dcaironline == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "直流空调是否在线（电池柜）",
+                        value: data.dcaironline2 == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "温湿度传感器是否在线（设备柜）",
+                        value: data.temhumonline == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "温湿度传感器是否在线（电池柜）",
+                        value: data.temhumonline2 == 0 ? "不在线" : "在线",
+                        level: 2
+                    }, {
+                        keyName: "环境温度告警(设备柜)",
+                        value: this.getTempAlarmStatusNameByType(data.hwenvtempalarmtraps)
+                    }, {
+                        keyName: "环境温度告警(电池柜)",
+                        value: this.getTempAlarmStatusNameByType(data.hwenvtempalarmtraps2)
+                    }, {
+                        keyName: "环境湿度告警(设备柜)",
+                        value: this.getHumiAlarmStatusNameByType(data.hwenvhumialarmresumetraps)
+                    }, {
+                        keyName: "环境湿度告警(电池柜)",
+                        value: this.getHumiAlarmStatusNameByType(data.hwenvhumialarmresumetraps2)
+                    }, {
+                        keyName: "门禁告警(设备柜)",
+                        value: data.hwdooralarmtraps == 0 ? "正常" : data.hwdooralarmtraps == 1 ? "告警" : "传感器未接"
+                    }, {
+                        keyName: "门禁告警(电池柜)",
+                        value: data.hwdooralarmtraps2 == 0 ? "正常" : data.hwdooralarmtraps2 == 1 ? "告警" : "传感器未接"
+                    }, {
+                        keyName: "水浸告警(设备柜)",
+                        value: data.hwwateralarmtraps == 0 ? "正常" : data.hwwateralarmtraps == 1 ? "告警" : "水浸传感器未接"
+                    }, {
+                        keyName: "水浸告警(电池柜)",
+                        value: data.hwwateralarmtraps2 == 0 ? "正常" : data.hwwateralarmtraps2 == 1 ? "告警" : "水浸传感器未接"
+                    }, {
+                        keyName: "烟雾告警(设备柜)",
+                        value: data.hwsmokealarmtraps == 0 ? "正常" : data.hwsmokealarmtraps == 1 ? "告警" : "烟雾传感器未接"
+                    }, {
+                        keyName: "烟雾告警(电池柜)",
+                        value: data.hwsmokealarmtraps2 == 0 ? "正常" : data.hwsmokealarmtraps2 == 1 ? "告警" : "烟雾传感器未接"
+                    }, {
+                        keyName: "交流防雷器故障告警",
+                        value: data.hwacspdalarmtraps == 0 ? "正常" : data.hwacspdalarmtraps == 1 ? "告警" : "防雷器传感器未接"
+                    }, {
+                        keyName: "空调内风机故障(设备柜)",
+                        value: data.hwair_cond_infan_alarm == 0 ? "正常" : data.hwair_cond_infan_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调内风机故障(电池柜)",
+                        value: data.hwair_cond_infan_alarm2 == 0 ? "正常" : data.hwair_cond_infan_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调外风机故障(设备柜)",
+                        value: data.hwair_cond_outfan_alarm == 0 ? "正常" : data.hwair_cond_outfan_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调外风机故障(电池柜)",
+                        value: data.hwair_cond_outfan_alarm2 == 0 ? "正常" : data.hwair_cond_outfan_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调压缩机故障(设备柜)",
+                        value: data.hwair_cond_comp_alarm == 0 ? "正常" : data.hwair_cond_comp_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调压缩机故障(电池柜)",
+                        value: data.hwair_cond_comp_alarm2 == 0 ? "正常" : data.hwair_cond_comp_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调回风口传感器故障(设备柜)",
+                        value: data.hwair_cond_return_port_sensor_alarm == 0 ? "正常" : data.hwair_cond_return_port_sensor_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调回风口传感器故障(电池柜)",
+                        value: data.hwair_cond_return_port_sensor_alarm2 == 0 ? "正常" : data.hwair_cond_return_port_sensor_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调蒸发器冻结(设备柜)",
+                        value: data.hwair_cond_evap_freezing_alarm == 0 ? "正常" : data.hwair_cond_evap_freezing_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调蒸发器冻结(电池柜)",
+                        value: data.hwair_cond_evap_freezing_alarm2 == 0 ? "正常" : data.hwair_cond_evap_freezing_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调频繁高压力(设备柜)",
+                        value: data.hwair_cond_freq_high_press_alarm == 0 ? "正常" : data.hwair_cond_freq_high_press_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调频繁高压力(电池柜)",
+                        value: data.hwair_cond_freq_high_press_alarm2 == 0 ? "正常" : data.hwair_cond_freq_high_press_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调通信失败告警(设备柜)",
+                        value: data.hwair_cond_comm_fail_alarm == 0 ? "正常" : data.hwair_cond_comm_fail_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "空调通信失败告警(电池柜)",
+                        value: data.hwair_cond_comm_fail_alarm2 == 0 ? "正常" : data.hwair_cond_comm_fail_alarm2 == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "交流电源输入停电告警",
+                        value: data.hwacinputfailalarm == 0 ? "正常" : data.hwacinputfailalarm == 1 ? "告警" : "无效",
+                        level: 2
+                    }, {
+                        keyName: "交流电源输入L1\t相缺相告警",
+                        value: data.hwacinputl1failalarm == 0 ? "正常" : data.hwacinputl1failalarm == 1 ? "告警" : "无效",
+                        level: 2
+                    }, {
+                        keyName: "交流电源输入L2\t相缺相告警",
+                        value: data.hwacinputl2failalarm == 0 ? "正常" : data.hwacinputl2failalarm == 1 ? "告警" : "无效",
+                        level: 2
+                    }, {
+                        keyName: "交流电源输入L3\t相缺相告警",
+                        value: data.hwacinputl3failalarm == 0 ? "正常" : data.hwacinputl3failalarm == 1 ? "告警" : "无效",
+                        level: 2
+                    }, {
+                        keyName: "直流电源输出告警",
+                        value: data.hwdcvoltalarmtraps == 0 ? "正常" : data.hwdcvoltalarmtraps == 1 ? "告警" : "无效",
+                        level: 2
+                    }, {
+                        keyName: "LLVD1下电告警",
+                        value: data.hwloadlvdalarmtraps == 0 ? "正常" : data.hwloadlvdalarmtraps == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "所有锂电通信失败告警",
+                        value: data.hwacbgroup_comm_fail_alarm == 0 ? "正常" : data.hwacbgroup_comm_fail_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池放电告警",
+                        value: data.hwacbgroup_discharge_alarm == 0 ? "正常" : data.hwacbgroup_discharge_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池充电过流告警",
+                        value: data.hwacbgroup_charge_overcurrent_alarm == 0 ? "正常" : data.hwacbgroup_charge_overcurrent_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池温度高告警",
+                        value: data.hwacbgroup_temphigh_alarm == 0 ? "正常" : data.hwacbgroup_temphigh_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池温度低告警",
+                        value: data.hwacbgroup_templow_alarm == 0 ? "正常" : data.hwacbgroup_templow_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池下电",
+                        value: data.hwacbgroup_poweroff_alarm == 0 ? "正常" : data.hwacbgroup_poweroff_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "电池熔丝断",
+                        value: data.hwacbgroup_fusebreak_alarm == 0 ? "正常" : data.hwacbgroup_fusebreak_alarm == 1 ? "告警" : "无效"
+                    }, {
+                        keyName: "模块丢失",
+                        value: data.hwacbgroup_moduleloss_alarm == 0 ? "正常" : data.hwacbgroup_moduleloss_alarm == 1 ? "告警" : "无效"
+                    });
+                    this.$forceUpdate();
+                })
+
+                this.request.get23Data(this, (data) => {
+                    if (!data.firewarelist || data.firewarelist.length == 0) {
+                        this.fireWareList.push({
+                            keyName: "防火墙数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.firewarelist.length; i++) {
+                            let fireWareItem = data.firewarelist[i];
+                            let isOnlineName = "";
+                            if (fireWareItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (fireWareItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.fireWareList.push({
+                                keyName: "防火墙" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+                        }
+                    }
+                })
+                this.request.get24Data(this, (data) => {
+                    if (!data.atlaslist || data.atlaslist.length == 0) {
+                        this.atlasList.push({
+                            keyName: "Atlas数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.atlaslist.length; i++) {
+                            let atlasItem = data.atlaslist[i];
+                            let isOnlineName = "";
+                            if (atlasItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (atlasItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.atlasList.push({
+                                keyName: "Atlas" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+                        }
+                    }
+                })
+                this.request.get27Data(this, null, (data) => {
+                    if (!data.spdlist || data.spdlist.length == 0) {
+                        this.spdList.push({
+                            keyName: "防雷器数量",
+                            value: 0
+                        });
+                    } else {
+                        for (let i = 0; i < data.spdlist.length; i++) {
+                            let spdItem = data.spdlist[i];
+                            let isOnlineName = "";
+                            if (spdItem.isonline == 0) {
+                                isOnlineName = "不在线";
+                            } else if (spdItem.isonline == 1) {
+                                isOnlineName = "在线";
+                            }
+                            this.spdList.push({
+                                keyName: "防雷器" + (i + 1),
+                                value: isOnlineName,
+                                level: 2
+                            });
+
+                            let remoteStatusAlarmName = "";
+                            if (spdItem.remotestatusalarm == 0) {
+                                remoteStatusAlarmName = "正常";
+                            } else if (spdItem.remotestatusalarm == 1) {
+                                remoteStatusAlarmName = "告警";
+                            }
+                            this.spdList.push({
+                                keyName: "防雷器" + (i + 1) + "脱扣状态状态",
+                                value: remoteStatusAlarmName
+                            });
+
+                            let lineGroundStatusName = "";
+                            if (spdItem.linegroundstatusalarm == 0) {
+                                lineGroundStatusName = "正常";
+                            } else if (spdItem.linegroundstatusalarm == 1) {
+                                lineGroundStatusName = "告警";
+                            }
+                            this.spdList.push({
+                                keyName: "防雷器" + (i + 1) + "线路&接地状态",
+                                value: lineGroundStatusName
+                            });
+
+                            let leakCurAlarmStatusName = "";
+                            if (spdItem.leakcuralarm == 0) {
+                                leakCurAlarmStatusName = "正常";
+                            } else if (spdItem.leakcuralarm == 1) {
+                                leakCurAlarmStatusName = "告警";
+                            }
+                            this.spdList.push({
+                                keyName: "防雷器" + (i + 1) + "漏电流报警",
+                                value: leakCurAlarmStatusName
+                            });
+                        }
+                    }
+                })
+                this.request.get28Data(this, (data) => {
+                    let isOnlineName = "";
+                    if (data.isonline == 0) {
+                        isOnlineName = "不在线";
+                    } else if (data.isonline == 1) {
+                        isOnlineName = "在线";
+                    }
+                    this.spdResList.push({
+                        keyName: "接地电阻",
+                        value: isOnlineName,
+                        level: 2
+                    });
+                })
+                this.request.get30Data(this, (data) => {
+                    let cpualarmName = "";
+                    if (data.cpualarm == 0) {
+                        cpualarmName = "正常";
+                    } else if (data.cpualarm == 1) {
+                        cpualarmName = "报警";
+                    }
+
+                    let cputempalarmName = "";
+                    if (data.cputempalarm == 0) {
+                        cputempalarmName = "正常";
+                    } else if (data.cputempalarm == 1) {
+                        cputempalarmName = "报警";
+                    }
+
+                    let memalarmName = "";
+                    if (data.memalarm == 0) {
+                        memalarmName = "正常";
+                    } else if (data.memalarm == 1) {
+                        memalarmName = "报警";
+                    }
+
+                    let softalarmName = "";
+                    if (data.softalarm == 0) {
+                        softalarmName = "正常";
+                    } else if (data.softalarm == 1) {
+                        softalarmName = "报警";
+                    }
+
+                    let lan2broadcastalarmName = "";
+                    if (data.lan2broadcastalarm == 0) {
+                        lan2broadcastalarmName = "正常";
+                    } else if (data.lan2broadcastalarm == 1) {
+                        lan2broadcastalarmName = "报警";
+                    }
+
+                    this.controllerList.push({
+                        keyName: "CPU使用率报警",
+                        value: cpualarmName,
+                        level: 2
+                    }, {
+                        keyName: "CPU温度报警",
+                        value: cputempalarmName,
+                    }, {
+                        keyName: "内存使用率报警",
+                        value: memalarmName,
+                    }, {
+                        keyName: "主程序运行异常报警",
+                        value: softalarmName,
+                    }, {
+                        keyName: "网口2广播风暴报警",
+                        value: lan2broadcastalarmName,
+                        level: 2
+                    });
+                })
             }
         },
         mounted() {
-            this.request.get14Data(this, (data) => {
-                if (!data.rsulist || data.rsulist.length == 0) {
-                    this.rsuList.push({
-                        keyName: "RSU控制器数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.rsulist.length; i++) {
-                        let rsuItem = data.rsulist[i];
-                        let isOnlineName = "";
-                        if (rsuItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (rsuItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.rsuList.push({
-                            keyName: "RSU控制器" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-
-
-                        let controlStatusName = "";
-                        if (rsuItem.controlstatus == 1) {
-                            controlStatusName = "PSAM卡复位失败";
-                        } else if (rsuItem.controlstatus == 2) {
-                            controlStatusName = "路侧单元天线头连接失败";
-                        } else if (rsuItem.controlstatus == 3) {
-                            controlStatusName = "路侧单元控制器初始化失败";
-                        }
-                        this.rsuList.push({
-                            keyName: "RSU控制器" + (i + 1) + "控制器工作状态",
-                            value: controlStatusName,
-                            level: 2
-                        });
-
-
-                        //psam卡列表
-                        if (!rsuItem.psamlist || rsuItem.psamlist.length == 0) {
-                            this.rsuList.push({
-                                keyName: "RSU控制器" + (i + 1),
-                                value: "PSAM列表（psamlist）为空"
-                            });
-                        } else {
-                            for (let j = 0; j < rsuItem.psamlist.length; j++) {
-                                let psamItem = rsuItem.psamlist[j];
-                                let psamStatusName = "";
-                                if (psamItem.status == 1) {
-                                    psamStatusName = "正常";
-                                } else if (psamItem.status == 2) {
-                                    psamStatusName = "异常";
-                                } else if (psamItem.status == 3) {
-                                    psamStatusName = "未授权";
-                                } else if (psamItem.status == 4) {
-                                    psamStatusName = "授权失败";
-                                }
-                                this.rsuList.push({
-                                    keyName: "RSU控制器" + (i + 1) + "-PSAM授权状态" + (j + 1),
-                                    value: psamStatusName
-                                });
-                            }
-                        }
-
-                        //天线头列表
-                        if (!rsuItem.antennalist || rsuItem.antennalist.length == 0) {
-                            this.rsuList.push({
-                                keyName: "RSU控制器" + (i + 1),
-                                value: "天线头列表（antennalist）为空"
-                            });
-                        } else {
-                            for (let j = 0; j < rsuItem.antennalist.length; j++) {
-                                let antennaItem = rsuItem.antennalist[j];
-                                let antennaStatusName = "";
-                                if (antennaItem.status == 0) {
-                                    antennaStatusName = "正常";
-                                } else if (antennaItem.status == 1) {
-                                    antennaStatusName = "异常";
-                                }
-                                this.rsuList.push({
-                                    keyName: "RSU控制器" + (i + 1) + "-天线头状态 " + (j + 1),
-                                    value: antennaStatusName
-                                });
-                            }
-                        }
-                    }
-                }
-            });
-            this.request.get15Data(this, (data) => {
-                if (!data.vehplatelist || data.vehplatelist.length == 0) {
-                    this.camList.push({
-                        keyName: "车牌识别仪数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.vehplatelist.length; i++) {
-                        let camItem = data.vehplatelist[i];
-                        let isOnlineName = "";
-                        if (camItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (camItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.camList.push({
-                            keyName: "车牌识别仪" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-                        let workStatusName = "";
-                        if (camItem.workStatus == 0) {
-                            workStatusName = "异常";
-                        } else if (camItem.controlstatus == 1) {
-                            workStatusName = "正常";
-                        }
-                        this.camList.push({
-                            keyName: "车牌识别仪" + (i + 1) + "工作状态",
-                            value: workStatusName
-                        });
-
-
-                        let lightWorkStatusName = "";
-                        if (camItem.lightworkstatus == 0) {
-                            lightWorkStatusName = "异常";
-                        } else if (camItem.lightworkstatus == 1) {
-                            lightWorkStatusName = "正常";
-                        }
-                        this.camList.push({
-                            keyName: "车牌识别仪" + (i + 1) + "补光灯的工作状态",
-                            value: lightWorkStatusName
-                        });
-                    }
-                }
-            });
-            this.request.get16Data(this, (data) => {
-                if (!data.ipswitchlist || data.ipswitchlist.length == 0) {
-                    this.ipSwitchList.push({
-                        keyName: "交换机数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.ipswitchlist.length; i++) {
-                        let ipSwitchItem = data.ipswitchlist[i];
-                        let isOnlineName = "";
-                        if (ipSwitchItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (ipSwitchItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.ipSwitchList.push({
-                            keyName: "交换机" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-                    }
-                }
-            })
-            this.request.get20Data(this, null, (data) => {
-                this.cabinetList.push({
-                    keyName: "机柜动环是否在线",
-                    value: data.isonline == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "锂电池组是否在线",
-                    value: data.acbgroupbatonline == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "直流空调是否在线（设备柜）",
-                    value: data.dcaironline == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "直流空调是否在线（电池柜）",
-                    value: data.dcaironline2 == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "温湿度传感器是否在线（设备柜）",
-                    value: data.temhumonline == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "温湿度传感器是否在线（电池柜）",
-                    value: data.temhumonline2 == 0 ? "不在线" : "在线",
-                    level: 2
-                }, {
-                    keyName: "环境温度告警(设备柜)",
-                    value: this.getTempAlarmStatusNameByType(data.hwenvtempalarmtraps)
-                }, {
-                    keyName: "环境温度告警(电池柜)",
-                    value: this.getTempAlarmStatusNameByType(data.hwenvtempalarmtraps2)
-                }, {
-                    keyName: "环境湿度告警(设备柜)",
-                    value: this.getHumiAlarmStatusNameByType(data.hwenvhumialarmresumetraps)
-                }, {
-                    keyName: "环境湿度告警(电池柜)",
-                    value: this.getHumiAlarmStatusNameByType(data.hwenvhumialarmresumetraps2)
-                }, {
-                    keyName: "门禁告警(设备柜)",
-                    value: data.hwdooralarmtraps == 0 ? "正常" : data.hwdooralarmtraps == 1 ? "告警" : "传感器未接"
-                }, {
-                    keyName: "门禁告警(电池柜)",
-                    value: data.hwdooralarmtraps2 == 0 ? "正常" : data.hwdooralarmtraps2 == 1 ? "告警" : "传感器未接"
-                }, {
-                    keyName: "水浸告警(设备柜)",
-                    value: data.hwwateralarmtraps == 0 ? "正常" : data.hwwateralarmtraps == 1 ? "告警" : "水浸传感器未接"
-                }, {
-                    keyName: "水浸告警(电池柜)",
-                    value: data.hwwateralarmtraps2 == 0 ? "正常" : data.hwwateralarmtraps2 == 1 ? "告警" : "水浸传感器未接"
-                }, {
-                    keyName: "烟雾告警(设备柜)",
-                    value: data.hwsmokealarmtraps == 0 ? "正常" : data.hwsmokealarmtraps == 1 ? "告警" : "烟雾传感器未接"
-                }, {
-                    keyName: "烟雾告警(电池柜)",
-                    value: data.hwsmokealarmtraps2 == 0 ? "正常" : data.hwsmokealarmtraps2 == 1 ? "告警" : "烟雾传感器未接"
-                }, {
-                    keyName: "交流防雷器故障告警",
-                    value: data.hwacspdalarmtraps == 0 ? "正常" : data.hwacspdalarmtraps == 1 ? "告警" : "防雷器传感器未接"
-                }, {
-                    keyName: "空调内风机故障(设备柜)",
-                    value: data.hwair_cond_infan_alarm == 0 ? "正常" : data.hwair_cond_infan_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调内风机故障(电池柜)",
-                    value: data.hwair_cond_infan_alarm2 == 0 ? "正常" : data.hwair_cond_infan_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调外风机故障(设备柜)",
-                    value: data.hwair_cond_outfan_alarm == 0 ? "正常" : data.hwair_cond_outfan_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调外风机故障(电池柜)",
-                    value: data.hwair_cond_outfan_alarm2 == 0 ? "正常" : data.hwair_cond_outfan_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调压缩机故障(设备柜)",
-                    value: data.hwair_cond_comp_alarm == 0 ? "正常" : data.hwair_cond_comp_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调压缩机故障(电池柜)",
-                    value: data.hwair_cond_comp_alarm2 == 0 ? "正常" : data.hwair_cond_comp_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调回风口传感器故障(设备柜)",
-                    value: data.hwair_cond_return_port_sensor_alarm == 0 ? "正常" : data.hwair_cond_return_port_sensor_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调回风口传感器故障(电池柜)",
-                    value: data.hwair_cond_return_port_sensor_alarm2 == 0 ? "正常" : data.hwair_cond_return_port_sensor_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调蒸发器冻结(设备柜)",
-                    value: data.hwair_cond_evap_freezing_alarm == 0 ? "正常" : data.hwair_cond_evap_freezing_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调蒸发器冻结(电池柜)",
-                    value: data.hwair_cond_evap_freezing_alarm2 == 0 ? "正常" : data.hwair_cond_evap_freezing_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调频繁高压力(设备柜)",
-                    value: data.hwair_cond_freq_high_press_alarm == 0 ? "正常" : data.hwair_cond_freq_high_press_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调频繁高压力(电池柜)",
-                    value: data.hwair_cond_freq_high_press_alarm2 == 0 ? "正常" : data.hwair_cond_freq_high_press_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调通信失败告警(设备柜)",
-                    value: data.hwair_cond_comm_fail_alarm == 0 ? "正常" : data.hwair_cond_comm_fail_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "空调通信失败告警(电池柜)",
-                    value: data.hwair_cond_comm_fail_alarm2 == 0 ? "正常" : data.hwair_cond_comm_fail_alarm2 == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "交流电源输入停电告警",
-                    value: data.hwacinputfailalarm == 0 ? "正常" : data.hwacinputfailalarm == 1 ? "告警" : "无效",
-                    level: 2
-                }, {
-                    keyName: "交流电源输入L1\t相缺相告警",
-                    value: data.hwacinputl1failalarm == 0 ? "正常" : data.hwacinputl1failalarm == 1 ? "告警" : "无效",
-                    level: 2
-                }, {
-                    keyName: "交流电源输入L2\t相缺相告警",
-                    value: data.hwacinputl2failalarm == 0 ? "正常" : data.hwacinputl2failalarm == 1 ? "告警" : "无效",
-                    level: 2
-                }, {
-                    keyName: "交流电源输入L3\t相缺相告警",
-                    value: data.hwacinputl3failalarm == 0 ? "正常" : data.hwacinputl3failalarm == 1 ? "告警" : "无效",
-                    level: 2
-                }, {
-                    keyName: "直流电源输出告警",
-                    value: data.hwdcvoltalarmtraps == 0 ? "正常" : data.hwdcvoltalarmtraps == 1 ? "告警" : "无效",
-                    level: 2
-                }, {
-                    keyName: "LLVD1下电告警",
-                    value: data.hwloadlvdalarmtraps == 0 ? "正常" : data.hwloadlvdalarmtraps == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "所有锂电通信失败告警",
-                    value: data.hwacbgroup_comm_fail_alarm == 0 ? "正常" : data.hwacbgroup_comm_fail_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池放电告警",
-                    value: data.hwacbgroup_discharge_alarm == 0 ? "正常" : data.hwacbgroup_discharge_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池充电过流告警",
-                    value: data.hwacbgroup_charge_overcurrent_alarm == 0 ? "正常" : data.hwacbgroup_charge_overcurrent_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池温度高告警",
-                    value: data.hwacbgroup_temphigh_alarm == 0 ? "正常" : data.hwacbgroup_temphigh_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池温度低告警",
-                    value: data.hwacbgroup_templow_alarm == 0 ? "正常" : data.hwacbgroup_templow_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池下电",
-                    value: data.hwacbgroup_poweroff_alarm == 0 ? "正常" : data.hwacbgroup_poweroff_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "电池熔丝断",
-                    value: data.hwacbgroup_fusebreak_alarm == 0 ? "正常" : data.hwacbgroup_fusebreak_alarm == 1 ? "告警" : "无效"
-                }, {
-                    keyName: "模块丢失",
-                    value: data.hwacbgroup_moduleloss_alarm == 0 ? "正常" : data.hwacbgroup_moduleloss_alarm == 1 ? "告警" : "无效"
-                });
-                this.$forceUpdate();
-            })
-
-            this.request.get23Data(this, (data) => {
-                if (!data.firewarelist || data.firewarelist.length == 0) {
-                    this.fireWareList.push({
-                        keyName: "防火墙数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.firewarelist.length; i++) {
-                        let fireWareItem = data.firewarelist[i];
-                        let isOnlineName = "";
-                        if (fireWareItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (fireWareItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.fireWareList.push({
-                            keyName: "防火墙" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-                    }
-                }
-            })
-            this.request.get24Data(this, (data) => {
-                if (!data.atlaslist || data.atlaslist.length == 0) {
-                    this.atlasList.push({
-                        keyName: "Atlas数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.atlaslist.length; i++) {
-                        let atlasItem = data.atlaslist[i];
-                        let isOnlineName = "";
-                        if (atlasItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (atlasItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.atlasList.push({
-                            keyName: "Atlas" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-                    }
-                }
-            })
-            this.request.get27Data(this, null, (data) => {
-                if (!data.spdlist || data.spdlist.length == 0) {
-                    this.spdList.push({
-                        keyName: "防雷器数量",
-                        value: 0
-                    });
-                } else {
-                    for (let i = 0; i < data.spdlist.length; i++) {
-                        let spdItem = data.spdlist[i];
-                        let isOnlineName = "";
-                        if (spdItem.isonline == 0) {
-                            isOnlineName = "不在线";
-                        } else if (spdItem.isonline == 1) {
-                            isOnlineName = "在线";
-                        }
-                        this.spdList.push({
-                            keyName: "防雷器" + (i + 1),
-                            value: isOnlineName,
-                            level: 2
-                        });
-
-                        let remoteStatusAlarmName = "";
-                        if (spdItem.remotestatusalarm == 0) {
-                            remoteStatusAlarmName = "正常";
-                        } else if (spdItem.remotestatusalarm == 1) {
-                            remoteStatusAlarmName = "告警";
-                        }
-                        this.spdList.push({
-                            keyName: "防雷器" + (i + 1) + "脱扣状态状态",
-                            value: remoteStatusAlarmName
-                        });
-
-                        let lineGroundStatusName = "";
-                        if (spdItem.linegroundstatusalarm == 0) {
-                            lineGroundStatusName = "正常";
-                        } else if (spdItem.linegroundstatusalarm == 1) {
-                            lineGroundStatusName = "告警";
-                        }
-                        this.spdList.push({
-                            keyName: "防雷器" + (i + 1) + "线路&接地状态",
-                            value: lineGroundStatusName
-                        });
-
-                        let leakCurAlarmStatusName = "";
-                        if (spdItem.leakcuralarm == 0) {
-                            leakCurAlarmStatusName = "正常";
-                        } else if (spdItem.leakcuralarm == 1) {
-                            leakCurAlarmStatusName = "告警";
-                        }
-                        this.spdList.push({
-                            keyName: "防雷器" + (i + 1) + "漏电流报警",
-                            value: leakCurAlarmStatusName
-                        });
-                    }
-                }
-            })
-            this.request.get28Data(this, (data) => {
-                let isOnlineName = "";
-                if (data.isonline == 0) {
-                    isOnlineName = "不在线";
-                } else if (data.isonline == 1) {
-                    isOnlineName = "在线";
-                }
-                this.spdResList.push({
-                    keyName: "接地电阻",
-                    value: isOnlineName,
-                    level: 2
-                });
-            })
-            this.request.get30Data(this, (data) => {
-                let cpualarmName = "";
-                if (data.cpualarm == 0) {
-                    cpualarmName = "正常";
-                } else if (data.cpualarm == 1) {
-                    cpualarmName = "报警";
-                }
-
-                let cputempalarmName = "";
-                if (data.cputempalarm == 0) {
-                    cputempalarmName = "正常";
-                } else if (data.cputempalarm == 1) {
-                    cputempalarmName = "报警";
-                }
-
-                let memalarmName = "";
-                if (data.memalarm == 0) {
-                    memalarmName = "正常";
-                } else if (data.memalarm == 1) {
-                    memalarmName = "报警";
-                }
-
-                let softalarmName = "";
-                if (data.softalarm == 0) {
-                    softalarmName = "正常";
-                } else if (data.softalarm == 1) {
-                    softalarmName = "报警";
-                }
-
-                let lan2broadcastalarmName = "";
-                if (data.lan2broadcastalarm == 0) {
-                    lan2broadcastalarmName = "正常";
-                } else if (data.lan2broadcastalarm == 1) {
-                    lan2broadcastalarmName = "报警";
-                }
-
-                this.controllerList.push({
-                    keyName: "CPU使用率报警",
-                    value: cpualarmName,
-                    level: 2
-                }, {
-                    keyName: "CPU温度报警",
-                    value: cputempalarmName,
-                }, {
-                    keyName: "内存使用率报警",
-                    value: memalarmName,
-                }, {
-                    keyName: "主程序运行异常报警",
-                    value: softalarmName,
-                }, {
-                    keyName: "网口2广播风暴报警",
-                    value: lan2broadcastalarmName,
-                    level: 2
-                });
-            })
+            this.getData();
+            //刷新数据
+            this.interval = setInterval(() => {
+                this.getData();
+            }, this.config.REFRESH_SECONDS());
+        },
+        destroyed() {
+            clearInterval(this.interval);
+            this.interval = null;
         }
-
     }
 
 </script>
@@ -912,6 +948,11 @@
         margin-top: 10px;
         height: 300px;
         overflow-y: scroll;
+    }
+
+    .forms_box {
+        margin-top: 0;
+        margin-bottom: 10px;
     }
 
 

@@ -32,26 +32,31 @@
                         <td style="text-align: center">{{item.volt}}</td>
                         <td style="text-align: center">{{item.amp}}</td>
                         <td style="text-align: center">
-                            <button :disabled="item.status == 0" @click="switchEle(item,index,1)">断电</button>
+                            <button :disabled="item.status == 0 || !needAuthority(3)" @click="switchEle(item,index,1)" :title="!needAuthority(3)?'无权限':''">断电
+                            </button>
                         </td>
                         <td style="text-align: center">
-                            <button :disabled="item.status == 1" @click="switchEle(item,index,2)">通电</button>
+                            <button :disabled="item.status == 1 || !needAuthority(3)" @click="switchEle(item,index,2)">通电</button>
                         </td>
                         <td style="text-align: center">
                             <button v-show="!(item.deviceModel.deviceType != deviceTypeList[0].value
                             && item.deviceModel.deviceType != deviceTypeList[1].value
-                            && item.deviceModel.deviceType != deviceTypeList[2].value)" @click="switchEle(item,index,3)">软重启
+                            && item.deviceModel.deviceType != deviceTypeList[2].value)"
+                                    :disabled="!needAuthority(3)" :title="!needAuthority(3)?'无权限':''"
+                                    @click="switchEle(item,index,3)">软重启
                             </button>
                         </td>
                         <td style="text-align: center">
                             <button v-show="!(item.deviceModel.deviceType != deviceTypeList[4].value
-                            && item.deviceModel.deviceType != deviceTypeList[5].value)" @click="switchEle(item,index,4)">硬重启
+                            && item.deviceModel.deviceType != deviceTypeList[5].value)"
+                                    :disabled="!needAuthority(3)" :title="!needAuthority(3)?'无权限':''"
+                                    @click="switchEle(item,index,4)">硬重启
                             </button>
                         </td>
                         <td style="text-align: center">
                             <button :title="getLevelUpUrl(item)"
                                     v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                    @click="levelUp(item)">升级
+                                    @click="levelUp(item)">跳转
                             </button>
                         </td>
                         <td style="text-align: center">
@@ -76,27 +81,32 @@
                         </td>
                         <td>{{item.volt}}</td>
                         <td>{{item.amp}}</td>
-                        <td>
-                            <button :disabled="item.status == 0" @click="switchEle(item,index,1)">断电</button>
-                        </td>
-                        <td>
-                            <button :disabled="item.status == 1" @click="switchEle(item,index,2)">通电</button>
-                        </td>
-                        <td>
-                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[0].value
-                            && item.deviceModel.deviceType != deviceTypeList[1].value
-                            && item.deviceModel.deviceType != deviceTypeList[2].value)" @click="switchEle(item,index,3)">软重启
+                        <td style="text-align: center">
+                            <button :disabled="item.status == 0 || !needAuthority(3)" @click="switchEle(item,index,1)" :title="!needAuthority(3)?'无权限':''">断电
                             </button>
                         </td>
-                        <td>
+                        <td style="text-align: center">
+                            <button :disabled="item.status == 1 || !needAuthority(3)" @click="switchEle(item,index,2)">通电</button>
+                        </td>
+                        <td style="text-align: center">
+                            <button v-show="!(item.deviceModel.deviceType != deviceTypeList[0].value
+                            && item.deviceModel.deviceType != deviceTypeList[1].value
+                            && item.deviceModel.deviceType != deviceTypeList[2].value)"
+                                    :disabled="!needAuthority(3)" :title="!needAuthority(3)?'无权限':''"
+                                    @click="switchEle(item,index,3)">软重启
+                            </button>
+                        </td>
+                        <td style="text-align: center">
                             <button v-show="!(item.deviceModel.deviceType != deviceTypeList[4].value
-                            && item.deviceModel.deviceType != deviceTypeList[5].value)" @click="switchEle(item,index,4)">硬重启
+                            && item.deviceModel.deviceType != deviceTypeList[5].value)"
+                                    :disabled="!needAuthority(3)" :title="!needAuthority(3)?'无权限':''"
+                                    @click="switchEle(item,index,4)">硬重启
                             </button>
                         </td>
                         <td>
                             <button :title="getLevelUpUrl(item)"
                                     v-if="getDeviceTypeNoListByDeviceType(item.deviceModel.deviceType).length!=0 && item.deviceModel.deviceType != deviceTypeList[0].value"
-                                    @click="levelUp(item)">升级
+                                    @click="levelUp(item)">跳转
                             </button>
                         </td>
                         <td>
@@ -127,8 +137,12 @@
                             {{this.getDoorStatusNameByStatus(this.data20.hwequcabfrontdoorstatus)}}
                         </td>
                         <td width="20%">
-                            <button v-show="this.data20.hwequcabfrontdoorstatus == 0" @click="openDoor(3,2)">开门</button>
-                            <button v-show="this.data20.hwequcabfrontdoorstatus == 1" @click="openDoor(3,1)">锁门</button>
+                            <button v-show="this.data20.hwequcabfrontdoorstatus == 0" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(3,2)">开门
+                            </button>
+                            <button v-show="this.data20.hwequcabfrontdoorstatus == 1" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(3,1)">锁门
+                            </button>
                             <span v-show="this.data20.hwequcabfrontdoorstatus == 255">无效</span>
                         </td>
                     </tr>
@@ -140,8 +154,12 @@
                             {{this.getDoorStatusNameByStatus(this.data20.hwequcabbackdoorstatus)}}
                         </td>
                         <td>
-                            <button v-show="this.data20.hwequcabbackdoorstatus == 0" @click="openDoor(4,2)">开门</button>
-                            <button v-show="this.data20.hwequcabbackdoorstatus == 1" @click="openDoor(4,1)">锁门</button>
+                            <button v-show="this.data20.hwequcabbackdoorstatus == 0" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(4,2)">开门
+                            </button>
+                            <button v-show="this.data20.hwequcabbackdoorstatus == 1" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(4,1)">锁门
+                            </button>
                             <span v-show="this.data20.hwequcabbackdoorstatus == 255">无效</span>
                         </td>
                     </tr>
@@ -153,8 +171,12 @@
                             {{this.getDoorStatusNameByStatus(this.data20.hwbatcabfrontdoorstatus)}}
                         </td>
                         <td>
-                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 0" @click="openDoor(1,2)">开门</button>
-                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 1" @click="openDoor(1,1)">锁门</button>
+                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 0" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(1,2)">开门
+                            </button>
+                            <button v-show="this.data20.hwbatcabfrontdoorstatus == 1" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(1,1)">锁门
+                            </button>
                             <span v-show="this.data20.hwbatcabfrontdoorstatus == 255">无效</span>
                         </td>
                     </tr>
@@ -166,8 +188,12 @@
                             {{this.getDoorStatusNameByStatus(this.data20.hwbatcabbackdoorstatus)}}
                         </td>
                         <td>
-                            <button v-show="this.data20.hwbatcabbackdoorstatus == 0" @click="openDoor(2,2)">开门</button>
-                            <button v-show="this.data20.hwbatcabbackdoorstatus == 1" @click="openDoor(2,1)">锁门</button>
+                            <button v-show="this.data20.hwbatcabbackdoorstatus == 0" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(2,2)">开门
+                            </button>
+                            <button v-show="this.data20.hwbatcabbackdoorstatus == 1" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''"
+                                    @click="openDoor(2,1)">锁门
+                            </button>
                             <span v-show="this.data20.hwbatcabbackdoorstatus == 255">无效</span>
                         </td>
                     </tr>
@@ -196,7 +222,7 @@
                                 <label>{{item.struck_cnt}}</label>
                             </td>
                             <td width="35%">
-                                <button @click="clearSpdCount(item)">清零</button>
+                                <button @click="clearSpdCount(item)" :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''">清零</button>
                             </td>
                         </tr>
                         </tbody>
@@ -207,10 +233,11 @@
 
         <div class="hard forms_box">
             <div class="tong_btn text-align-center">
-                <a class="btn_red" style="width: 160px" @click="dialogVisible = true">重启ETC门架监控控制器
-                    <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
-                </a>
-                <span v-show="afterSubmit">重启成功</span>
+                <el-button @click="dialogVisible = true" type="danger" style="background-color: #019de5;margin-left: 10px" size="small" round
+                           :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''">
+                    重启ETC门架监控控制器
+                    <i class="fa fa-spinner fa-pulse" v-show="submitting" style="margin: 0 6px"></i>
+                </el-button>
             </div>
         </div>
 
@@ -257,11 +284,16 @@
 
                 ],
                 submitting: false,
-                dialogVisible: false
+                dialogVisible: false,
+                interval: null
             }
         },
         computed: {},
         methods: {
+            needAuthority(needAuthority) {
+                let currentUserAuthority = this.$store.getters.getAuthority;
+                return currentUserAuthority != null && currentUserAuthority >= needAuthority;
+            },
             getDeviceTypeNameByDeviceType(deviceType) {
                 let deviceTypeName;
                 this.deviceTypeList.forEach((item) => {
@@ -380,7 +412,7 @@
                     opt: 2
                 }
                 this.request.get22Data(this, param, (data) => {
-                    this.data22 = data;
+                    this.$message({type: "success", "message": "操作成功"});
                 })
             },
             clearSpdCount(item) {
@@ -393,7 +425,7 @@
                     opt: 2
                 }
                 this.request.get27Data(this, param, (data) => {
-                    console.log(data);
+                    this.$message({type: "success", "message": "操作成功"});
                 })
             },
             reStart() {
@@ -404,13 +436,9 @@
                     opt: 2
                 }
                 this.submitting = true;
-                this.request.get20Data(this, param, (data) => {
+                this.request.get18Data(this, param, (data) => {
                     this.submitting = false;
-                    console.log(data);
-                    this.afterSubmit = true;
-                    setTimeout(() => {
-                        this.afterSubmit = false;
-                    }, 2000)
+                    this.$message({type: "success", "message": "操作成功"});
                 })
             }
         },
@@ -434,18 +462,69 @@
                         }
                     });
                 })
+            }, (error) => {
+                this.data12 = {};
             })
             this.request.get20Data(this, null, (data) => {
                 this.data20 = data;
+            }, (error) => {
+                this.data20 = {};
             })
             this.request.get22Data(this, null, (data) => {
                 this.data22 = data;
+            }, (error) => {
+                this.data22 = {};
             })
             this.request.get27Data(this, null, (data) => {
                 this.data27 = data;
+            }, (error) => {
+                this.data27 = {};
             })
+            //刷新数据
+            this.interval = setInterval(() => {
+                this.request.get12Data(this, null, (data) => {
+                    this.data12 = data;
+                    data.dolist.forEach((doListItem) => {
+                        let doListItemName = doListItem.name;
+                        let deviceModel = this.getDeviceModelByDoListName(doListItemName);
+                        if (deviceModel) {
+                            doListItem.deviceModel = deviceModel;
+                        }
+                    });
+                    this.request.get19Data(this, null, (data) => {
+                        this.data19 = data;
+                        data.dolist.forEach((doListItem) => {
+                            let doListItemName = doListItem.name;
+                            let deviceModel = this.getDeviceModelByDoListName(doListItemName);
+                            if (deviceModel) {
+                                doListItem.deviceModel = deviceModel;
+                            }
+                        });
+                    })
+                }, (error) => {
+                    this.data12 = {};
+                })
+                this.request.get20Data(this, null, (data) => {
+                    this.data20 = data;
+                }, (error) => {
+                    this.data20 = {};
+                })
+                this.request.get22Data(this, null, (data) => {
+                    this.data22 = data;
+                }, (error) => {
+                    this.data22 = {};
+                })
+                this.request.get27Data(this, null, (data) => {
+                    this.data27 = data;
+                }, (error) => {
+                    this.data27 = {};
+                })
+            }, this.config.REFRESH_SECONDS());
+        },
+        destroyed() {
+            clearInterval(this.interval);
+            this.interval = null;
         }
-
     }
 
 </script>

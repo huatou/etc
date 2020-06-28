@@ -5,37 +5,37 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        data5: {},
-        data12: {},
-        data25: {},
-        data30: {},
+        token: null,
+        authority: null,
+        username: null,
+        deviceStatus: null
     },
     mutations: {
-        setData5(state, data) {
-            this.state.data5 = data;
+        setAuthority(state, authority) {
+            this.state.authority = authority;
         },
-        setData12(state, data) {
-            this.state.data12 = data;
+        setToken(state, token) {
+            this.state.token = token;
         },
-        setData25(state, data) {
-            this.state.data25 = data;
+        setUsername(state, username) {
+            this.state.username = username;
         },
-        setData30(state, data) {
-            this.state.data30 = data;
+        setDeviceStatus(state, deviceStatus) {
+            this.state.deviceStatus = deviceStatus;
         }
     },
     getters: {
-        getData5: state => {
-            return state.data5;
+        getAuthority: state => {
+            return state.authority;
         },
-        getData12: state => {
-            return state.data12;
+        getToken: state => {
+            return state.token;
         },
-        getData25: state => {
-            return state.data25;
+        getUsername: state => {
+            return state.username;
         },
-        getData30: state => {
-            return state.data30;
+        getDeviceStatus: state => {
+            return state.deviceStatus;
         }
     },
     actions: {}

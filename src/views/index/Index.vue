@@ -16,7 +16,14 @@
                 <div class="user_main_box">
                     <!--左侧菜单 -->
                     <div class="left_menu">
-                        <div class="menu_list_box">
+                        <div class="user_info">
+                            <p class="user_name" style="margin-bottom: 2px">用户名：{{username}}</p>
+                            <p>权限等级{{authority}}</p>
+                            <p style="margin-top: 8px;font-weight: bold;font-size: 18px" :style="{'color':deviceStatus?'#019e00':'red'}">
+                                设备状态：{{deviceStatus?'在线':"离线"}}
+                            </p>
+                        </div>
+                        <div class="menu_list_box" style="margin-top: 10px">
                             <a v-for="menuItem in menuList" @click="to(menuItem)" :class="menuItem.active?'hover':''"><i :class="menuItem.icon"></i>{{menuItem.text}}
                             </a>
                         </div>
@@ -43,11 +50,15 @@
 
 </style>
 <script>
+    import '../../assets/css/hd_main.css'
 
     export default {
         components: {},
         data() {
             return {
+                username: this.$store.getters.getUsername,
+                authority: this.$store.getters.getAuthority,
+
                 menuList: [
                     {
                         to: '/index/connect-device',
@@ -66,7 +77,7 @@
                         to: '/index/distribution-floor-info-input',
                         icon: 'ico_power',
                         text: '配电层信息录入'
-                    },{
+                    }, {
                         to: '/index/device-list',
                         icon: 'ico_list',
                         text: '设备信息列表'
@@ -74,10 +85,6 @@
                         to: '/index/device-control',
                         icon: 'ico_steup',
                         text: '设备控制'
-                    }, {
-                        to: '/index/operation-log',
-                        icon: 'ico_log',
-                        text: '操作日志'
                     }, {
                         to: '/index/device-warning',
                         icon: 'ico_alert',
@@ -105,9 +112,14 @@
                 menuItem.active = true;
                 this.$forceUpdate();
             }
+        },
+
+        computed: {
+            deviceStatus: function () {
+                let deviceStatus = this.$store.getters.getDeviceStatus;
+                return deviceStatus;
+            }
         }
-
     }
-
 
 </script>

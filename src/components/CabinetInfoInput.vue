@@ -140,7 +140,7 @@
         </div>
         <!--数据统计-->
         <div class="date_box forms_box" style="margin-top: 10px;">
-            <div class="ptkj_box"><em style="color:black;font-weight: bold">防雷器信息录入</em></div>
+            <div class="ptkj_box"><em style="color:black;font-weight: bold">防雷监测器信息录入</em></div>
             <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1" style="table-layout: fixed">
                 <tbody>
                 <tr>
@@ -163,22 +163,23 @@
                     <td width="50%">
                         <label style="width: 120px">防雷器数量</label>
                         <select type="select_one" v-model="data12.spdcount">
-                            <option v-for="n in 16" :value="n" v-text="n"></option>
+                            <option v-for="n in 16" :value="n+''" v-text="n"></option>
                         </select>
                     </td>
                     <td width="50%">
                         <label style="width: 120px">防雷器厂家型号</label>
-                        <select type="select_one" v-model="data12.spdfactory">
-                            <option v-for="item in spdFactoryList" :value="item.value" v-text="item.value"></option>
+                        <select type="select_one" v-model="data12.spdtype" readonly>
+                            <option v-for="item in spdFactoryList" :value="item.value" v-text="item.name"></option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div v-for="(item, index) in data12.spdlist.slice(0 , data12.spdcount)">
-                            <button class="yzhBtn active" :class="{'active':index == currentIndex}">
-                                防雷卡控制器{{index+1}}
-                            </button>
+                        <button v-for="(item, index) in data12.spdlist.slice(0 , data12.spdcount)" class="yzhBtn" :class="currentPdsIndex == index?'active':''"
+                                @click="currentPdsIndex = index">
+                            SPD{{index+1}}
+                        </button>
+                        <div v-for="(item, index) in data12.spdlist.slice(0 , data12.spdcount)" v-show="currentPdsIndex == index">
                             <table width="100%" border="1" cellspacing="0" cellpadding="0" class="table_s1 yzhSmallTable"
                                    style="table-layout: fixed;font-size: 12px;margin-bottom: 4px">
                                 <tbody>
@@ -207,9 +208,10 @@
 
         <div class="hard forms_box">
             <div class="tong_btn text-align-center">
-                <a class="btn_blue" style="width: 100px" @click="submit()">录入
-                    <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
-                </a>
+                <el-button @click="submit()" type="primary" style="background-color: #019de5;margin-left: 10px;width: 160px" size="small" round
+                           :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''">
+                    录入<i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
+                </el-button>
             </div>
         </div>
     </div>
@@ -261,12 +263,14 @@
                 }],
                 submitting: false,
                 /** 防雷器厂商型号列表 */
+                currentPdsIndex: 0,
                 spdFactoryList: [
-                    {
-                        value: "雷迅"
-                    }, {
-                        value: "华咨圣泰"
-                    }
+                    {value: "1", name: "雷迅"},
+                    {value: "2", name: "华咨圣泰"},
+                    {value: "3", name: "宽永"},
+                    {value: "4", name: "中普同安"},
+                    {value: "5", name: "中普众合"},
+                    {value: "6", name: "宽永0M"},
                 ],
                 /** 温控模式列表 */
                 hwCoolingDevicesModeList: [{
@@ -285,6 +289,10 @@
             }
         },
         methods: {
+            needAuthority(needAuthority) {
+                let currentUserAuthority = this.$store.getters.getAuthority;
+                return currentUserAuthority != null && currentUserAuthority >= needAuthority;
+            },
             submit() {
                 this.submitting = true;
                 let params = this.jquery.extend({opt: 2}, this.data12);
@@ -298,15 +306,23 @@
         mounted() {
             this.request.get12Data(this, null, (data) => {
                 this.data12 = data;
+            }, (error) => {
+                this.data12 = {};
             })
             this.request.get20Data(this, null, (data) => {
                 this.data20 = data;
+            }, (error) => {
+                this.data20 = {};
             })
             this.request.get22Data(this, null, (data) => {
                 this.data22 = data;
+            }, (error) => {
+                this.data22 = {};
             })
             this.request.get27Data(this, null, (data) => {
                 this.data27 = data;
+            }, (error) => {
+                this.data27 = {};
             })
         }
 

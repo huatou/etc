@@ -10,6 +10,7 @@ import DeviceControl from "./components/DeviceControl";
 import OperationLog from "./components/OperationLog";
 import DeviceWarning from "./components/DeviceWarning";
 import DeviceInfoImportExport from "@/components/DeviceInfoImportExport";
+import Login from "@/views/login/Login";
 
 Vue.use(Router);
 const router = new Router({
@@ -70,6 +71,11 @@ const router = new Router({
                     component: DeviceInfoImportExport
                 }
             ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         }
     ]
 });

@@ -37,21 +37,21 @@
                 <li>
                     <label>CPU使用率报警阀值</label>
                     <select type="select_one" v-model="data12.cpualarmvalue">
-                        <option v-for="n in 100" :value="n" v-text="n+'%'"></option>
+                        <option v-for="n in 100" :value="n+''" v-text="n + '%'"></option>
                     </select>
                     <label style="text-align: right">CPU温度报警阀值</label>
                     <select type="select_one" v-model="data12.cputempalarmvalue">
-                        <option v-for="n in 100" :value="n" v-text="n+'℃'"></option>
+                        <option v-for="n in 100" :value="n+''" v-text="n + '℃'"></option>
                     </select>
                     <label style="text-align: right">内存使用率报警阀值</label>
                     <select type="select_one" v-model="data12.memalarmvalue">
-                        <option v-for="n in 100" :value="n" v-text="10+'%'"></option>
+                        <option v-for="n in 100" :value="n+''" v-text="n + '%'"></option>
                     </select>
                 </li>
                 <li>
                     <label>交换机数量</label>
                     <select type="select_one" v-model="data12.ipswitchtype">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                     <label style="text-align: right">交换机厂商</label>
                     <select type="select_one" v-model="data12.ipswitchtype ">
@@ -61,7 +61,7 @@
                 <li>
                     <label>防火墙数量</label>
                     <select type="select_one" v-model="data12.firewarecount">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                     <label style="text-align: right">防火墙厂商</label>
                     <select type="select_one" v-model="data12.firewaretype">
@@ -71,31 +71,31 @@
                 <li>
                     <label>rsu控制器数量</label>
                     <select type="select_one" v-model="data12.rsucount">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                 </li>
                 <li>
                     <label>车牌识别仪数量</label>
                     <select type="select_one" v-model="data12.vehplatecount">
-                        <option v-for="n in 13" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 13" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                 </li>
                 <li>
                     <label>全景摄像机数量</label>
                     <select type="select_one" v-model="data12.vehplate900count">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                 </li>
                 <li>
                     <label>Atlas数量</label>
                     <select type="select_one" v-model="data12.atlascount">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                 </li>
                 <li>
                     <label>监控摄像机数量</label>
                     <select type="select_one" v-model="data12.camcount">
-                        <option v-for="n in 5" :value="n-1" v-text="n-1"></option>
+                        <option v-for="n in 5" :value="(n-1)+''" v-text="n-1"></option>
                     </select>
                 </li>
                 <li>
@@ -106,9 +106,10 @@
                 </li>
                 <div class="hard forms_box">
                     <div class="tong_btn text-align-center">
-                        <a class="btn_blue" style="width: 100px" @click="submit()">录入
-                            <i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
-                        </a>
+                        <el-button @click="submit()" type="primary" style="background-color: #019de5;margin-left: 10px;width: 160px" size="small" round
+                                   :disabled="!needAuthority(2)" :title="!needAuthority(2)?'无权限':''">
+                            录入<i class="fa fa-spinner fa-pulse" v-show="submitting"></i>
+                        </el-button>
                     </div>
                 </div>
             </ul>
@@ -159,6 +160,10 @@
             }
         },
         methods: {
+            needAuthority(needAuthority) {
+                let currentUserAuthority = this.$store.getters.getAuthority;
+                return currentUserAuthority != null && currentUserAuthority >= needAuthority;
+            },
             submit() {
                 this.submitting = true;
                 let params = this.jquery.extend({opt: 2}, this.data12);
@@ -172,6 +177,8 @@
         mounted() {
             this.request.get12Data(this, null, (data) => {
                 this.data12 = data;
+            }, (error) => {
+                this.data12 = {};
             })
         }
 

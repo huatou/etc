@@ -248,101 +248,102 @@
 
             getData12() {
                 this.request.get12Data(this, null, (data) => {
-                        this.currentItem.json = JSON.stringify(data, null, 2);
-                        this.currentItemData = data;
-                        this.showData = [];
-                        this.showData.push({
-                            keyName: "消息类型",
-                            value: data.messagetype
-                        }, {
-                            keyName: "机柜类型",
-                            value: this.getCabinetTypeNameByType(data.cabinettype)
-                        }, {
-                            keyName: "机柜厂商",
-                            value: data.cabinetfactroy
-                        }, {
-                            keyName: "etc 门架路网编号",
-                            value: data.flagnetroadid
-                        }, {
-                            keyName: "etc 门架路段编号",
-                            value: data.flagroadid
-                        }, {
-                            keyName: "etc 门架编号",
-                            value: data.flagid
-                        }, {
-                            keyName: "etc 门架序号",
-                            value: data.posid
-                        }, {
-                            keyName: "行车方向",
-                            value: data.direction
-                        }, {
-                            keyName: "行车方向说明",
-                            value: data.dirdescription
-                        });
-                        console.log("this.showData", this.showData);
-                        this.$forceUpdate();
-                    }
-                )
+                    this.currentItem.json = JSON.stringify(data, null, 2);
+                    this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "机柜类型",
+                        value: this.getCabinetTypeNameByType(data.cabinettype)
+                    }, {
+                        keyName: "机柜厂商",
+                        value: data.cabinetfactroy
+                    }, {
+                        keyName: "etc 门架路网编号",
+                        value: data.flagnetroadid
+                    }, {
+                        keyName: "etc 门架路段编号",
+                        value: data.flagroadid
+                    }, {
+                        keyName: "etc 门架编号",
+                        value: data.flagid
+                    }, {
+                        keyName: "etc 门架序号",
+                        value: data.posid
+                    }, {
+                        keyName: "行车方向",
+                        value: data.direction
+                    }, {
+                        keyName: "行车方向说明",
+                        value: data.dirdescription
+                    });
+                    console.log("this.showData", this.showData);
+                    this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
+                })
             },
             getData14() {
                 this.request.get14Data(this, (data) => {
-                        this.currentItem.json = JSON.stringify(data, null, 2);
-                        this.currentItemData = data;
-                        this.showData = [];
-                        this.showData.push({
-                            keyName: "消息类型",
-                            value: data.messagetype
-                        }, {
-                            keyName: "控制器IP地址",
-                            value: data.vmctrl_ipaddr
-                        }, {
-                            keyName: "采集时间",
-                            value: data.opttime
-                        }, {
-                            keyName: "RSU数量",
-                            value: data.rsucnt
-                        });
-                        if (data.rsulist) {
-                            for (let i = 0; i < data.rsulist.length; i++) {
-                                let rsuItem = data.rsulist[i];
-                                let rsuListItemLst = [{
-                                    keyName: "RSU编号",
-                                    value: rsuItem.id
-                                }, {
-                                    keyName: "名称",
-                                    value: rsuItem.name
-                                }, {
-                                    keyName: "RSU IP地址",
-                                    value: rsuItem.ip
-                                }, {
-                                    keyName: "RSU端口",
-                                    value: rsuItem.port
-                                }, {
-                                    keyName: "是否在线",
-                                    value: rsuItem.isOnline == 0 ? "不在线" : "在线"
-                                }, {
-                                    keyName: "控制器工作状态",
-                                    value: rsuItem.controlstatus == 0 ? "正常" : rsuItem.controlstatus == 1 ? "PSAM卡复位失败" : "异常"
-                                }, {
-                                    keyName: "电压",
-                                    value: rsuItem.volt
-                                }, {
-                                    keyName: "电流",
-                                    value: rsuItem.amp
-                                }, {
-                                    keyName: "PSAM数量",
-                                    value: rsuItem.psamcount
-                                }];
-                                this.showData.push({
-                                    keyName: "RSU天线控制器" + (i + 1),
-                                    list: rsuListItemLst
-                                });
-                            }
+                    this.currentItem.json = JSON.stringify(data, null, 2);
+                    this.currentItemData = data;
+                    this.showData = [];
+                    this.showData.push({
+                        keyName: "消息类型",
+                        value: data.messagetype
+                    }, {
+                        keyName: "控制器IP地址",
+                        value: data.vmctrl_ipaddr
+                    }, {
+                        keyName: "采集时间",
+                        value: data.opttime
+                    }, {
+                        keyName: "RSU数量",
+                        value: data.rsucnt
+                    });
+                    if (data.rsulist) {
+                        for (let i = 0; i < data.rsulist.length; i++) {
+                            let rsuItem = data.rsulist[i];
+                            let rsuListItemLst = [{
+                                keyName: "RSU编号",
+                                value: rsuItem.id
+                            }, {
+                                keyName: "名称",
+                                value: rsuItem.name
+                            }, {
+                                keyName: "RSU IP地址",
+                                value: rsuItem.ip
+                            }, {
+                                keyName: "RSU端口",
+                                value: rsuItem.port
+                            }, {
+                                keyName: "是否在线",
+                                value: rsuItem.isOnline == 0 ? "不在线" : "在线"
+                            }, {
+                                keyName: "控制器工作状态",
+                                value: rsuItem.controlstatus == 0 ? "正常" : rsuItem.controlstatus == 1 ? "PSAM卡复位失败" : "异常"
+                            }, {
+                                keyName: "电压",
+                                value: rsuItem.volt
+                            }, {
+                                keyName: "电流",
+                                value: rsuItem.amp
+                            }, {
+                                keyName: "PSAM数量",
+                                value: rsuItem.psamcount
+                            }];
+                            this.showData.push({
+                                keyName: "RSU天线控制器" + (i + 1),
+                                list: rsuListItemLst
+                            });
                         }
-                        console.log("this.showData", this.showData);
-                        this.$forceUpdate();
                     }
-                )
+                    this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
+                })
             },
             getData15() {
                 this.request.get15Data(this, (data) => {
@@ -409,7 +410,7 @@
                                 value: vehplateItem.workstatus == 0 ? "异常" : "正常"
                             }, {
                                 keyName: "补光灯的工作状态",
-                                value: vehplateItem.lightworkstatus == 0 ? "异常" : "正常"
+                                value: vehplateItem.lightworkstatus == 0 ? "关闭" : "打开"
                             }, {
                                 keyName: "识别成功率",
                                 value: vehplateItem.recognitionrate
@@ -441,8 +442,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -504,8 +506,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -888,6 +891,8 @@
                         value: data.hwequcabbackdoorstatus == 0 ? "上锁" : data.hwequcabbackdoorstatus == 1 ? "开锁" : "无效"
                     });
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -949,8 +954,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -1009,8 +1015,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -1084,8 +1091,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -1119,8 +1127,9 @@
                         keyName: "报警值",
                         value: data.spdres_alarm_value
                     });
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -1221,8 +1230,9 @@
                             });
                         }
                     }
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
             ,
@@ -1292,8 +1302,9 @@
                         keyName: "网口2广播风暴报警信息",
                         value: data.lan2broadcastalarmmesg
                     });
-                    console.log("this.showData", this.showData);
                     this.$forceUpdate();
+                }, (error) => {
+                    this.showData = [];
                 })
             }
         }
